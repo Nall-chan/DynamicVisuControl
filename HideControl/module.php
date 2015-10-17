@@ -71,41 +71,49 @@ class HideControl extends IPSModule
     public function Update()
     {
         // prüfen
-        if ($_IPS["SENDER"] <> "Variable")
+        $SourceID = $this->ReadPropertyInteger("Source");        
+        if ($SourceID == 0) return;
+        if (isset($_IPS))
         {
-            echo "Error processing Eventdata";
-            return;
+            if ($_IPS["SENDER"] <> "Variable")
+            {
+                echo "Error processing Eventdata";
+                return;
+            }
+            if ($_IPS["VARIABLE"] <> $this->ReadPropertyInteger("Source"))
+            {
+                echo "Error processing Eventdata";
+                return;
+            }           
+            $Value = $_IPS["VALUE"];
+        } else {
+            $Value = GetValue($SourceID);
         }
-        if ($_IPS["VARIABLE"] <> $this->ReadPropertyInteger("Source"))
-        {
-            echo "Error processing Eventdata";
-            return;
-        }
-        $SourceID = IPS_GetVariable($this->ReadPropertyInteger("Source"));
-        switch ($SourceID["VariableType"])
+        $Source = IPS_GetVariable($SourceID);
+        switch ($Source["VariableType"])
         {
             case 0: // bool
-                if ($this - ReadPropertyBoolean("ConditionBoolean") == (bool) $_IPS["VALUE"])
+                if ($this->ReadPropertyBoolean("ConditionBoolean") == (bool)$Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
                 break;
             case 1: // int
-                if ((int) $this - RegisterPropertyString("ConditionValue") == (int) $_IPS["VALUE"])
+                if ((int) $this->RegisterPropertyString("ConditionValue") == (int)$Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
 
                 break;
             case 2: // float
-                if ((float) $this - RegisterPropertyString("ConditionValue") == (float) $_IPS["VALUE"])
+                if ((float) $this->RegisterPropertyString("ConditionValue") == (float)$Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
 
                 break;
             case 3: // string
-                if ((string) $this - RegisterPropertyString("ConditionValue") == (string) $_IPS["VALUE"])
+                if ((string) $this->RegisterPropertyString("ConditionValue") == (string)$Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
