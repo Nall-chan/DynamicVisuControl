@@ -5,8 +5,8 @@
 		{ "type": "Label", "label": "Vergleichswert bei Boolean-Variablen"},
     		{ "name": "ConditionBoolean", "type": "Select", "caption": "Vergleichswert:", 
 			"options": [ 
-				{ "label": "True/Wahr/Ein", "value": true }, 
-				{ "label": "False/Unwahr/Aus", "value": false }
+				{ "label": "True/Wahr/Ein", "value": 1 }, 
+				{ "label": "False/Unwahr/Aus", "value": 0 }
                         ]
                 },
 		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},

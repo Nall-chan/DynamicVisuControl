@@ -1,9 +1,6 @@
-# DynamicVisuControl
+# IPSDynamicVisuControl
 
-.
-.
-.
-
+Enthält verschiedene Module für die dynamische Visualisierung von Objekten in IP-Symcon.
 
 ## Dokumentation
 
@@ -17,9 +14,40 @@
 
 ## 1. Funktionsumfang
 
-.
-.
-.
+### HideControl
+ Versteckt/visualisiert ein Objekt oder dessen Unterobjekte in Abhängigkeit einer Variable.  
+
+**Beispiel 1:**  
+**Beispiel 2:**  
+**Beispiel 3:**  
+
+### DisableControl
+ Deaktiviert/aktiviert ein Objekt oder dessen Unterobjekte in Abhängigkeit einer Variable.  
+
+**Beispiel 1:**  
+**Beispiel 2:**  
+**Beispiel 3:**  
+
+### LinkHideControl
+ Erzeugt Links zu Unterobjekte eines ausgewählten Objektes und versteckt/visualisiert diese Links in Abhängigkeit einer Variable.  
+
+**Beispiel 1:**  
+**Beispiel 2:**  
+**Beispiel 3:**  
+
+### LinkDisableControl
+ Erzeugt Links zu Unterobjekte eines ausgewählten Objektes und deaktiviert/aktiviert diese Links in Abhängigkeit einer Variable.  
+
+**Beispiel 1:**  
+**Beispiel 2:**  
+**Beispiel 3:**  
+
+### LinkGroupHideControl
+ Versteckt/visualisiert untergeordnete Links, in Abhänigkeit der Werte der jeweiligen Zielvariable.  
+
+**Beispiel 1:**  
+**Beispiel 2:**  
+**Beispiel 3:**  
 
 ## 2. Voraussetzungen
 
@@ -39,7 +67,7 @@ keine
 ## 5. Anhang
 
 **GUID's:**  
- `{A9347205-0889-4D01-BDD2-C377FC0E39D9}`
+ folgen
 
 **Changelog:**  
  Version 1.0:
