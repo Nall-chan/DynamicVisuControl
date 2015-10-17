@@ -1,0 +1,14 @@
+{
+    "id": "{E94821F4-1647-440B-BB2A-76F8CF1CBB16}",
+    "name": "LinkDisableControl",
+    "type": 0,
+    "vendor": "",
+    "aliases": 
+    [
+        "Link Disable Control"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "LINKDISABLE"
+}

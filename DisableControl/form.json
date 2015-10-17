@@ -1,0 +1,24 @@
+{
+	"elements":
+	[
+		{ "name": "Source", "type": "SelectVariable", "caption": "Variable:"},
+		{ "type": "Label", "label": "Vergleichswert bei Boolean-Variablen"},
+    		{ "name": "ConditionBoolean", "type": "Select", "caption": "Vergleichswert:", 
+			"options": [ 
+				{ "label": "True/Wahr/Ein", "value": 1 }, 
+				{ "label": "False/Unwahr/Aus", "value": 0 }
+                        ]
+                },
+		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},
+                { "name": "ConditionValue", "type": "ValidationTextBox", "caption": "Vergleichswert:"},                
+		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
+		{ "type": "Label", "label": "Ziel welches deaktiviert werden soll:"},
+		{ "name": "Target", "type": "SelectObject", "caption": "Ziel:"},
+    		{ "name": "TargetType", "type": "Select", "caption": "Was deaktivieren:", 
+			"options": [ 
+				{ "label": "Ziel", "value": 0 }, 
+				{ "label": "Unterobjekte von Ziel", "value": 1}
+                        ]
+                }
+	]	
+}

@@ -1,8 +1,8 @@
 <?
 
-require_once(__DIR__ . "/../HideBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
+require_once(__DIR__ . "/../DisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
-class HideControl extends HideBaseControl
+class DisableControl extends DisableBaseControl
 {
 
     public function Create()
@@ -15,14 +15,14 @@ class HideControl extends HideBaseControl
     public function Destroy()
     {
         parent::Destroy();
-        $this->UnRegisterEvent("UpdateHideControl");
+        $this->UnRegisterEvent("UpdateDisableControl");
     }
     
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-
-        $this->RegisterEvent("UpdateHideControl", $this->ReadPropertyInteger("Source"), 'HIDE_Update($_IPS[\'TARGET\']);');
+        
+        $this->RegisterEvent("UpdateDisableControl", $this->ReadPropertyInteger("Source"), 'DISABLE_Update($_IPS[\'TARGET\']);');
         $this->Update();
     }
 
