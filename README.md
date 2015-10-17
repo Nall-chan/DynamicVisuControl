@@ -1,4 +1,4 @@
-# HideControl
+# DynamicVisuControl
 
 .
 .
@@ -29,7 +29,7 @@
 
    - IPS 4.x  
         Über das 'Modul Control' folgende URL hinzufügen:  
-        `git://github.com/Nall-chan/IPSHideControl.git`  
+        `git://github.com/Nall-chan/IPSDynamicVisuControl.git`  
 
 
 ## 4. Funktionsreferenz

@@ -1,15 +1,13 @@
 <?
 
-require_once(__DIR__ . "/../HideBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
+require_once(__DIR__ . "/../LinkHideOrLinkDisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
-class LinkHideControl extends HideBaseControl
+class LinkHideControl extends LinkHideOrLinkDisableBaseControl
 {
 
     public function Create()
     {
         parent::Create();
-        $this->RegisterPropertyInteger("Target", 0);
-        $this->RegisterPropertyInteger("TargetType", 1);
     }
     
     public function Destroy()
@@ -39,6 +37,12 @@ class LinkHideControl extends HideBaseControl
     protected function RegisterEvent($Name, $Source, $Script)
     {
         parent:: RegisterEvent($Name, $Source, $Script);
+    }
+    
+    protected function SetHiddenOrDisabled($ObjectID, $Value)
+    {
+        if (IPS_GetObject($ObjectID)["ObjectIsHidden"] <> $Value)
+            IPS_SetHidden($ObjectID, $Value);
     }
 
 }

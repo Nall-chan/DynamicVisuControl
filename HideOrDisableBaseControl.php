@@ -2,12 +2,15 @@
 
 require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
-class DisableBaseControl extends HideDeaktivLinkBaseControl
+class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 {
 
     public function Create()
     {
         parent::Create();
+        
+        $this->RegisterPropertyInteger("Target", 0);
+        $this->RegisterPropertyInteger("TargetType", 1);        
     }
     public function Destroy()
     {
@@ -41,7 +44,7 @@ class DisableBaseControl extends HideDeaktivLinkBaseControl
 
         if ($this->ReadPropertyInteger("TargetType") == 0)
         {
-            $this->SetDisabled($Target, $hidden);
+            $this->SetHiddenOrDisabled($Target, $hidden);
         }
         elseif ($this->ReadPropertyInteger("TargetType") == 1)
         {
@@ -54,7 +57,7 @@ class DisableBaseControl extends HideDeaktivLinkBaseControl
                 if (IPS_GetObject($Child)['ObjectType'] == 6)
                     if (IPS_GetLink($Child)['TargetID'] == $Source)
                         continue;
-                $this->SetDisabled($Child, $hidden);
+                $this->SetHiddenOrDisabled($Child, $hidden);
             }
         }
         else
@@ -79,10 +82,8 @@ class DisableBaseControl extends HideDeaktivLinkBaseControl
         parent::RegisterEvent($Name, $Source, $Script);
     }
 
-    protected function SetDisabled($ObjectID, $Value)
+    protected function SetHiddenOrDisabled($ObjectID, $Value)
     {
-        if (IPS_GetObject($ObjectID)["ObjectIsDisabled"] <> $Value)
-            IPS_SetDisabled ($ObjectID, $Value);
     }
 
 }
