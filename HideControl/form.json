@@ -14,7 +14,7 @@
 		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
 		{ "type": "Label", "label": "Ziel welches versteckt werden soll:"},
 		{ "name": "Target", "type": "SelectObject", "caption": "Ziel:"},
-    		{ "name": "TargetTyp", "type": "Select", "caption": "Was verstecken:", 
+    		{ "name": "TargetType", "type": "Select", "caption": "Was verstecken:", 
 			"options": [ 
 				{ "label": "Ziel", "value": 0 }, 
 				{ "label": "Unterobjekte von Ziel", "value": 1}
