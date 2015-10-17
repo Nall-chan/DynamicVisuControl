@@ -1,6 +1,6 @@
 <?
 
-class HideControl extends IPSModule
+class LinkControl extends IPSModule
 {
 
     public function Create()

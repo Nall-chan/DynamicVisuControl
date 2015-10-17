@@ -53,7 +53,7 @@ class HideControl extends IPSModule
         }
         elseif ($this->ReadPropertyInteger("TargetType") == 1)
         {
-            $Source = ReadPropertyInteger("Source");
+            $Source = $this->ReadPropertyInteger("Source");
             $Childs = IPS_GetChildrenIDs($Target);
             foreach ($Childs as $Child)
             {
