@@ -1,0 +1,14 @@
+{
+    "id": "{37BC47EE-E95A-4DAF-A408-129D778F7AB5}",
+    "name": "LinkControl",
+    "type": 0,
+    "vendor": "",
+    "aliases": 
+    [
+        "Link Control"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "LINK"
+}

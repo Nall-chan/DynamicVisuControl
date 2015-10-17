@@ -1,0 +1,18 @@
+{
+	"elements":
+	[
+		{ "name": "Source", "type": "SelectVariable", "caption": "Variable:"},
+		{ "type": "Label", "label": "Vergleichswert bei Boolean-Variablen"},
+    		{ "name": "ConditionBoolean", "type": "Select", "caption": "Vergleichswert:", 
+			"options": [ 
+				{ "label": "True/Wahr/Ein", "value": true }, 
+				{ "label": "False/Unwahr/Aus", "value": false }
+                        ]
+                },
+		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},
+                { "name": "ConditionValue", "type": "ValidationTextbox", "caption": "Vergleichswert:"},                
+		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
+		{ "type": "Label", "label": "Quelle welche  verlinkt werden soll:"},
+		{ "name": "LinkSource", "type": "SelectObject", "caption": "Quelle:"}
+	]	
+}
