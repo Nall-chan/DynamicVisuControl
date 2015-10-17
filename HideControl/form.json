@@ -1,0 +1,24 @@
+{
+	"elements":
+	[
+		{ "name": "Source", "type": "SelectVariable", "caption": "Variable:"},
+		{ "type": "Label", "label": "Vergleichswert bei Boolean-Variablen"},
+    		{ "name": "ConditionBoolean", "type": "Select", "caption": "Vergleichswert:", 
+			"options": [ 
+				{ "label": "True/Wahr/Ein", "value": true }, 
+				{ "label": "False/Unwahr/Aus", "value": false }
+                        ]
+                },
+		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},
+                { "name": "ConditionValue", "type": "ValidationTextbox", "caption": "Vergleichswert:"},                
+		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
+		{ "type": "Label", "label": "Ziel welches versteckt werden soll:"},
+		{ "name": "Target", "type": "SelectObject", "caption": "Ziel:"},
+    		{ "name": "TargetTyp", "type": "Select", "caption": "Was verstecken:", 
+			"options": [ 
+				{ "label": "Ziel", "value": 0 }, 
+				{ "label": "Unterobjekte von Ziel", "value": 1}
+                        ]
+                }
+	]	
+}

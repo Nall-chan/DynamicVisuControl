@@ -1,0 +1,14 @@
+{
+    "id": "{A9347205-0889-4D01-BDD2-C377FC0E39D9}",
+    "name": "HideControl",
+    "type": 0,
+    "vendor": "",
+    "aliases": 
+    [
+        "Hide Control"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "HIDE"
+}
