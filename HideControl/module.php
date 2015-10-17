@@ -10,7 +10,7 @@ class HideControl extends IPSModule
         //These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
         $this->RegisterPropertyInteger("Source", 0);
-        $this->RegisterPropertyBoolean("ConditionBoolean", TRUE);
+        $this->RegisterPropertyInteger("ConditionBoolean", TRUE);
         $this->RegisterPropertyString("ConditionValue", "");
         $this->RegisterPropertyBoolean("Invert", FALSE);
         $this->RegisterPropertyInteger("Target", 0);
@@ -75,7 +75,7 @@ class HideControl extends IPSModule
     public function Update()
     {
         // prüfen
-        IPS_LogMessage("CondValue", print_r($this->ReadPropertyBoolean("ConditionBoolean"), 1));
+        IPS_LogMessage("CondValue", print_r($this->ReadPropertyInteger("ConditionBoolean"), 1));
         IPS_LogMessage("IPS", print_r($_IPS, 1));
         $SourceID = $this->ReadPropertyInteger("Source");
         if ($SourceID == 0)
@@ -98,7 +98,7 @@ class HideControl extends IPSModule
         switch ($Source["VariableType"])
         {
             case 0: // bool
-                if ($this->ReadPropertyBoolean("ConditionBoolean") == (bool) $Value)
+                if ($this->ReadPropertyInteger("ConditionBoolean") == (bool) $Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
