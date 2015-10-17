@@ -10,7 +10,7 @@
                         ]
                 },
 		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},
-                { "name": "ConditionValue", "type": "ValidationTextbox", "caption": "Vergleichswert:"},                
+                { "name": "ConditionValue", "type": "ValidationTextBox", "caption": "Vergleichswert:"},                
 		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
 		{ "type": "Label", "label": "Ziel welches versteckt werden soll:"},
 		{ "name": "Target", "type": "SelectObject", "caption": "Ziel:"},

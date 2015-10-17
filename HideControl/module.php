@@ -41,7 +41,7 @@ class HideControl extends IPSModule
             return;
         }
         $Target = $this->ReadPropertyInteger("Target");
-        if (!IPS_ObjectExists ($Target))
+        if (!IPS_ObjectExists($Target))
         {
             echo "Target invalid.";
             return;
@@ -57,8 +57,12 @@ class HideControl extends IPSModule
             $Childs = IPS_GetChildrenIDs($Target);
             foreach ($Childs as $Child)
             {
-                if ($Child <> $Source)
-                    $this->SetHidden($Child, $hidden);
+                if ($Child == $Source)
+                    continue;
+                // Wenn Child Link ist 
+                // und TargetID $Source ist
+                // dann überspringen
+                $this->SetHidden($Child, $hidden);
             }
         }
         else
@@ -71,49 +75,50 @@ class HideControl extends IPSModule
     public function Update()
     {
         // prüfen
-        $SourceID = $this->ReadPropertyInteger("Source");        
-        if ($SourceID == 0) return;
-        if (isset($_IPS))
+        IPS_LogMessage("CondValue", print_r($this->ReadPropertyBoolean("ConditionBoolean"), 1));
+        IPS_LogMessage("IPS", print_r($_IPS, 1));
+        $SourceID = $this->ReadPropertyInteger("Source");
+        if ($SourceID == 0)
+            return;
+        if ($_IPS["SENDER"] == "Variable")
         {
-            if ($_IPS["SENDER"] <> "Variable")
-            {
-                echo "Error processing Eventdata";
-                return;
-            }
             if ($_IPS["VARIABLE"] <> $this->ReadPropertyInteger("Source"))
             {
                 echo "Error processing Eventdata";
                 return;
-            }           
+            }
             $Value = $_IPS["VALUE"];
-        } else {
+        }
+        else
+        {
             $Value = GetValue($SourceID);
         }
+        IPS_LogMessage("IPS", print_r($Value, 1));
         $Source = IPS_GetVariable($SourceID);
         switch ($Source["VariableType"])
         {
             case 0: // bool
-                if ($this->ReadPropertyBoolean("ConditionBoolean") == (bool)$Value)
+                if ($this->ReadPropertyBoolean("ConditionBoolean") == (bool) $Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
                 break;
             case 1: // int
-                if ((int) $this->RegisterPropertyString("ConditionValue") == (int)$Value)
+                if ((int) $this->RegisterPropertyString("ConditionValue") == (int) $Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
 
                 break;
             case 2: // float
-                if ((float) $this->RegisterPropertyString("ConditionValue") == (float)$Value)
+                if ((float) $this->RegisterPropertyString("ConditionValue") == (float) $Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
 
                 break;
             case 3: // string
-                if ((string) $this->RegisterPropertyString("ConditionValue") == (string)$Value)
+                if ((string) $this->RegisterPropertyString("ConditionValue") == (string) $Value)
                     $this->Hide(true);
                 else
                     $this->Hide(false);
