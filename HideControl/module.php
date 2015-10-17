@@ -40,8 +40,8 @@ class HideControl extends IPSModule
             echo "Target invalid.";
             return;
         }
-        $Target = @IPS_GetObject($this->ReadPropertyInteger("Target"));
-        if ($Target === false)
+        $Target = $this->ReadPropertyInteger("Target");
+        if (!IPS_ObjectExists ($Target))
         {
             echo "Target invalid.";
             return;
