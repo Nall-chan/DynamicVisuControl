@@ -61,21 +61,21 @@ class HideDeaktivLinkBaseControl extends IPSModule
                     $this->HideOrDeaktiv(false);
                 break;
             case 1: // int
-                if ((int) $this->RegisterPropertyString("ConditionValue") == (int) $Value)
+                if ((int) $this->ReadPropertyString("ConditionValue") == (int) $Value)
                     $this->HiHideOrDeaktiv(true);
                 else
                     $this->HideOrDeaktiv(false);
 
                 break;
             case 2: // float
-                if ((float) $this->RegisterPropertyString("ConditionValue") == (float) $Value)
+                if ((float) $this->ReadPropertyString("ConditionValue") == (float) $Value)
                     $this->HideOrDeaktiv(true);
                 else
                     $this->HideOrDeaktiv(false);
 
                 break;
             case 3: // string
-                if ((string) $this->RegisterPropertyString("ConditionValue") == (string) $Value)
+                if ((string) $this->ReadPropertyString("ConditionValue") == (string) $Value)
                     $this->HideOrDeaktiv(true);
                 else
                     $this->HideOrDeaktiv(false);
