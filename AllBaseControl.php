@@ -8,7 +8,7 @@ class HideDeaktivLinkBaseControl extends IPSModule
         parent::Create();
 
         $this->RegisterPropertyInteger("Source", 0);
-        $this->RegisterPropertyInteger("ConditionBoolean", TRUE);
+        $this->RegisterPropertyInteger("ConditionBoolean", 1);
         $this->RegisterPropertyString("ConditionValue", "");
         $this->RegisterPropertyBoolean("Invert", FALSE);
     }
