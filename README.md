@@ -26,24 +26,22 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
  Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
  
 ![](Doku/HideControl_1.png)  
+![](Doku/HideControl_2.png)  
 
- 1. Die Variable welche zum Vergleich herangezogen wird.
- 2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.
- 3. Das Ziel welches versteckt werden soll.
- 4. Hier kann festgelegt werden, ob nur das Ziel (3), oder dessen Unterobjekte deaktiviert werden sollen.
+ 1. Die Variable welche zum Vergleich herangezogen wird.  
+ 2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
+ 3. Das Ziel welches versteckt werden soll.  
+ 4. Hier kann festgelegt werden, ob nur das Ziel (3), oder dessen Unterobjekte deaktiviert werden sollen.  
  5. Ist die Variable unter 1 nicht vom Typ ´boolean´ so ist hier der Vergleichswert einzutragen.  
+ 6. Zeigt alle, beim Zustand aus, versteckten Unterobjekte.  
+     Es ist auch zu sehen, dass das erste Objekt nicht versteckt wurde, da es sich um einen Link zur Variable 1 handelt.  
   
 **Achtung:**  
   Befindet sich die Variable (1) auch unterhalb dem zu versteckenden Objekt, so ist diese im WebFront dann auch nicht mehr sichtbar.  
-  Dies kann gewollt, aber auch hinderlich sein.
+  Dies kann gewollt, aber auch hinderlich sein.  
   Darum kann alternativ unter 4 festgelegt werden, das nur Unterobjekte versteckt werden.  
-  Bei dieser Einstellung wird beim verstecken geprüft, ob unter den Unterobjekten auch die Variable (oder ein Link zur Variable) enthalten ist.
-  Dieses Objekt wird dann **nicht** versteckt.
-
-![](Doku/HideControl_2.png)  
-
- 6. Zeigt alle, beim Zustand aus, versteckten Unterobjekte.  
-     Es ist auch zu sehen, dass das erste Objekt nicht versteckt wurde, da es sich um einen Link zur Variable 1 handelt.
+  Bei dieser Einstellung wird beim verstecken geprüft, ob unter den Unterobjekten auch die Variable (oder ein Link zur Variable) enthalten ist.  
+  Dieses Objekt wird dann **nicht** versteckt.  
 
  
 ### DisableControl
@@ -52,32 +50,65 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
  Ist der Vergleich erfolgreich (= wahr) so wird das Ziel-Objekt (3) deaktiviert.  
  Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
  
- 1. Die Variable welche zum Vergleich herangezogen wird.
- 2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.
- 3. Das Ziel welches deaktiviert werden soll.
- 4. Hier kann festgelegt werden, ob nur das Ziel (3), oder dessen Unterobjekte deaktiviert werden sollen.
+![](Doku/DisableControl_2.png)  
+
+ 1. Die Variable welche zum Vergleich herangezogen wird.  
+ 2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
+ 3. Das Ziel welches deaktiviert werden soll.  
+ 4. Hier kann festgelegt werden, ob nur das Ziel (3), oder dessen Unterobjekte deaktiviert werden sollen.  
  5. Ist die Variable unter 1 nicht vom Typ ´boolean´ so ist hier der Vergleichswert einzutragen.  
+ 6. Zeigt alle, beim Zustand aus, deaktivierten Unterobjekte im Objektbaum.  
+ 7. Darstellung der deaktivierten Unterobjekte im WebFront.  
+     Es ist auch zu sehen, dass das erste Objekt nicht deaktiviert wurde, da es sich um einen Link zur Variable 1 handelt.  
 
 **Achtung:**  
   Befindet sich die Variable (1) auch unterhalb dem zu deaktivierenden Objekt, so ist diese im WebFront dann auch nicht mehr bedienbar.  
-  Dies kann gewollt, aber auch hinderlich sein.
+  Dies kann gewollt, aber auch hinderlich sein.  
   Darum kann alternativ unter 4 festgelegt werden, das nur Unterobjekte deaktiviert werden.  
-  Bei dieser Einstellung wird beim deaktivieren geprüft, ob unter den Unterobjekten auch die Variable (oder ein Link zur Variable) enthalten ist.
-  Dieses Objekt wird dann **nicht** deaktiviert.
+  Bei dieser Einstellung wird beim deaktivieren geprüft, ob unter den Unterobjekten auch die Variable (oder ein Link zur Variable) enthalten ist.  
+  Dieses Objekt wird dann **nicht** deaktiviert.  
 
-![](Doku/DisableControl_2.png)  
-
- 6. Zeigt alle, beim Zustand aus, deaktivierten Unterobjekte im Objektbaum.  
- 7. Darstellung der deaktivierten Unterobjekte im WebFront.  
-     Es ist auch zu sehen, dass das erste Objekt nicht deaktiviert wurde, da es sich um einen Link zur Variable 1 handelt.
 
 ### LinkHideControl
  Erzeugt Links zu Unterobjekte eines ausgewählten Objektes und versteckt/visualisiert diese Links in Abhängigkeit einer Variable.  
+ Die Links werden aus allen direkten Unterobjekten des Quell-Objektes (3) automatisch erzeugt.  
+ Dabei werden versteckte Objekte im Quell-Objekt (3) ignoriert.  
+ Zum Vergleich wird wieder die Variable (1) mit den jeweiligen Wert aus (2) oder (5) verglichen.  
+ Ist der Vergleich erfolgreich (= wahr) so werden die vorher erzeugten Links versteckt.  
+ Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
 
+![](Doku/LinkHideControl_1.png)  
+![](Doku/LinkHideControl_2.png)  
+
+ 1. Die Variable welche zum Vergleich herangezogen wird.  
+ 2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
+ 3. Das Quell-Objekt von dessen Unterobjekte Links erzeugt werden sollen.  
+ 4. -entfällt-  
+ 5. Ist die Variable unter 1 nicht vom Typ ´boolean´ so ist hier der Vergleichswert einzutragen.  
+ 6. Zeigt die autoamtisch erstellen Links.  
+  
+**Achtung:**  
+  Diese Instanz ist für die direkte Visualisierung gedacht.  
 
 ### LinkDisableControl
  Erzeugt Links zu Unterobjekte eines ausgewählten Objektes und deaktiviert/aktiviert diese Links in Abhängigkeit einer Variable.  
+ Die Links werden aus allen direkten Unterobjekten des Quell-Objektes (3) automatisch erzeugt.  
+ Dabei werden versteckte Objekte im Quell-Objekt (3) ignoriert.  
+ Zum Vergleich wird wieder die Variable (1) mit den jeweiligen Wert aus (2) oder (5) verglichen.  
+ Ist der Vergleich erfolgreich (= wahr) so werden die vorher erzeugten Links versteckt.  
+ Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
 
+![](Doku/LinkDisableControl_2.png)  
+
+ 1. Die Variable welche zum Vergleich herangezogen wird.  
+ 2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
+ 3. Das Quell-Objekt von dessen Unterobjekte Links erzeugt werden sollen.  
+ 4. -entfällt-  
+ 5. Ist die Variable unter 1 nicht vom Typ ´boolean´ so ist hier der Vergleichswert einzutragen.  
+ 6. Zeigt die autoamtisch erstellen Links.  
+  
+**Achtung:**  
+  Diese Instanz ist für die direkte Visualisierung gedacht.  
 
 ### LinkGroupHideControl
  Versteckt/visualisiert untergeordnete Links, in Abhänigkeit der Werte der jeweiligen Zielvariable.  

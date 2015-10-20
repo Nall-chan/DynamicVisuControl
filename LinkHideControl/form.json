@@ -10,7 +10,7 @@
                         ]
                 },
 		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},
-                { "name": "ConditionValue", "type": "ValidationTextbox", "caption": "Vergleichswert:"},                
+                { "name": "ConditionValue", "type": "ValidationTextBox", "caption": "Vergleichswert:"},                
 		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
 		{ "type": "Label", "label": "Quelle welche  verlinkt werden soll:"},
 		{ "name": "LinkSource", "type": "SelectObject", "caption": "Quelle:"}
