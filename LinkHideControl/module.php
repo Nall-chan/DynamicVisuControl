@@ -9,18 +9,24 @@ class LinkHideControl extends LinkHideOrLinkDisableBaseControl
     {
         parent::Create();
     }
-    
+
     public function Destroy()
     {
         parent::Destroy();
         $this->UnRegisterEvent("UpdateLinkHideControl");
     }
-    
+
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-
-        $this->RegisterEvent("UpdateLinkHideControl", $this->ReadPropertyInteger("Source"), 'LINKHIDE_Update($_IPS[\'TARGET\']);');
+        try
+        {
+            $this->RegisterEvent("UpdateLinkHideControl", $this->ReadPropertyInteger("Source"), 'LINKHIDE_Update($_IPS[\'TARGET\']);');
+        } catch (Exception $exc)
+        {
+            trigger_error($exc->getMessage(), $exc->getCode());
+            return;
+        }
         $this->Update();
     }
 
@@ -38,7 +44,7 @@ class LinkHideControl extends LinkHideOrLinkDisableBaseControl
     {
         parent:: RegisterEvent($Name, $Source, $Script);
     }
-    
+
     protected function SetHiddenOrDisabled($ObjectID, $Value)
     {
         if (IPS_GetObject($ObjectID)["ObjectIsHidden"] <> $Value)

@@ -19,8 +19,14 @@ class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-
-        $this->RegisterEvent("UpdateLinkDisableControl", $this->ReadPropertyInteger("Source"), 'LINKDISABLE_Update($_IPS[\'TARGET\']);');
+        try
+        {
+            $this->RegisterEvent("UpdateLinkDisableControl", $this->ReadPropertyInteger("Source"), 'LINKDISABLE_Update($_IPS[\'TARGET\']);');
+        } catch (Exception $exc)
+        {
+            trigger_error($exc->getMessage(), $exc->getCode());
+            return;
+        }
         $this->Update();
     }
 

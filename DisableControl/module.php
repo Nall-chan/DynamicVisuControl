@@ -9,18 +9,24 @@ class DisableControl extends HideOrDisableBaseControl
     {
         parent::Create();
     }
-    
+
     public function Destroy()
     {
         parent::Destroy();
         $this->UnRegisterEvent("UpdateDisableControl");
     }
-    
+
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-        
-        $this->RegisterEvent("UpdateDisableControl", $this->ReadPropertyInteger("Source"), 'DISABLE_Update($_IPS[\'TARGET\']);');
+        try
+        {
+            $this->RegisterEvent("UpdateDisableControl", $this->ReadPropertyInteger("Source"), 'DISABLE_Update($_IPS[\'TARGET\']);');
+        } catch (Exception $exc)
+        {
+            trigger_error($exc->getMessage(), $exc->getCode());
+            return;
+        }
         $this->Update();
     }
 
@@ -38,12 +44,13 @@ class DisableControl extends HideOrDisableBaseControl
     {
         parent:: RegisterEvent($Name, $Source, $Script);
     }
-    
+
     protected function SetHiddenOrDisabled($ObjectID, $Value)
     {
         if (IPS_GetObject($ObjectID)["ObjectIsDisabled"] <> $Value)
-            IPS_SetDisabled ($ObjectID, $Value);
+            IPS_SetDisabled($ObjectID, $Value);
     }
+
 }
 
 ?>

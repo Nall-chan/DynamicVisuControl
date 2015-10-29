@@ -9,18 +9,25 @@ class HideControl extends HideOrDisableBaseControl
     {
         parent::Create();
     }
-    
+
     public function Destroy()
     {
         parent::Destroy();
         $this->UnRegisterEvent("UpdateHideControl");
     }
-    
+
     public function ApplyChanges()
     {
         parent::ApplyChanges();
+        try
+        {
+            $this->RegisterEvent("UpdateHideControl", $this->ReadPropertyInteger("Source"), 'HIDE_Update($_IPS[\'TARGET\']);');
+        } catch (Exception $exc)
+        {
+            trigger_error($exc->getMessage(), $exc->getCode());
+            return;
+        }
 
-        $this->RegisterEvent("UpdateHideControl", $this->ReadPropertyInteger("Source"), 'HIDE_Update($_IPS[\'TARGET\']);');
         $this->Update();
     }
 
@@ -38,12 +45,13 @@ class HideControl extends HideOrDisableBaseControl
     {
         parent:: RegisterEvent($Name, $Source, $Script);
     }
-    
+
     protected function SetHiddenOrDisabled($ObjectID, $Value)
     {
         if (IPS_GetObject($ObjectID)["ObjectIsHidden"] <> $Value)
             IPS_SetHidden($ObjectID, $Value);
     }
+
 }
 
 ?>
