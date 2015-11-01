@@ -179,7 +179,7 @@ class HideDeaktivLinkBaseControl extends IPSModule
         {
             if ($_IPS["VARIABLE"] <> $this->ReadPropertyInteger("Source"))
             {
-                trigger_error("Error processing Eventdata", E_USER_ERROR);
+                trigger_error("Error processing Eventdata", E_USER_WARNING);
                 return;
             }
             $Value = $_IPS["VALUE"];
@@ -228,7 +228,7 @@ class HideDeaktivLinkBaseControl extends IPSModule
         if ($id > 0)
         {
             if (!IPS_EventExists($id))
-                throw new Exception('Event not present',E_USER_NOTICE);
+                throw new Exception('Event not present',E_USER_WARNING);
             IPS_DeleteEvent($id);
         }
     }
@@ -241,7 +241,7 @@ class HideDeaktivLinkBaseControl extends IPSModule
         if ($id > 0)
         {
             if (!IPS_EventExists($id))
-                throw new Exception("Ident with name " . $Name . " is used for wrong object type",E_USER_ERROR);
+                throw new Exception("Ident with name " . $Name . " is used for wrong object type",E_USER_WARNING);
 
             if (IPS_GetEvent($id)['EventType'] <> 0)
             {
