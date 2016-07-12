@@ -5,15 +5,10 @@ require_once(__DIR__ . "/../HideOrDisableBaseControl.php");  // HideDeaktivLinkB
 class HideControl extends HideOrDisableBaseControl
 {
 
-    public function Create()
-    {
-        parent::Create();
-    }
-
     public function Destroy()
     {
-        parent::Destroy();
         $this->UnRegisterEvent("UpdateHideControl");
+        parent::Destroy();
     }
 
     public function ApplyChanges()
@@ -22,7 +17,8 @@ class HideControl extends HideOrDisableBaseControl
         try
         {
             $this->RegisterEvent("UpdateHideControl", $this->ReadPropertyInteger("Source"), 'HIDE_Update($_IPS[\'TARGET\']);');
-        } catch (Exception $exc)
+        }
+        catch (Exception $exc)
         {
             trigger_error($exc->getMessage(), $exc->getCode());
             return;
@@ -34,16 +30,6 @@ class HideControl extends HideOrDisableBaseControl
     public function Update()
     {
         parent::Update();
-    }
-
-    protected function UnRegisterEvent($Name)
-    {
-        parent::UnRegisterEvent($Name);
-    }
-
-    protected function RegisterEvent($Name, $Source, $Script)
-    {
-        parent:: RegisterEvent($Name, $Source, $Script);
     }
 
     protected function SetHiddenOrDisabled($ObjectID, $Value)

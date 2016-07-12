@@ -138,7 +138,7 @@ if (@constant('IPS_BASE') == null) //Nur wenn Konstanten noch nicht bekannt sind
     define('FOUND_UNSUPPORTED', 4); //Device is not supported by Module
 }
 
-class HideDeaktivLinkBaseControl extends IPSModule
+abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
 
     public function Create()
@@ -150,21 +150,8 @@ class HideDeaktivLinkBaseControl extends IPSModule
         $this->RegisterPropertyString("ConditionValue", "");
         $this->RegisterPropertyBoolean("Invert", FALSE);
     }
-    
-    public function Destroy()
-    {
-        parent::Destroy();
-    }
-
-    public function ApplyChanges()
-    {
-        parent::ApplyChanges();
-    }
-    
-    protected function HideOrDeaktiv(boolean $hidden)
-    {
-        //must be overwritten
-    }
+       
+    abstract protected function HideOrDeaktiv(bool $hidden);
     
     public function Update()
     {

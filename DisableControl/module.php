@@ -5,15 +5,10 @@ require_once(__DIR__ . "/../HideOrDisableBaseControl.php");  // HideDeaktivLinkB
 class DisableControl extends HideOrDisableBaseControl
 {
 
-    public function Create()
-    {
-        parent::Create();
-    }
-
     public function Destroy()
     {
-        parent::Destroy();
         $this->UnRegisterEvent("UpdateDisableControl");
+        parent::Destroy();
     }
 
     public function ApplyChanges()
@@ -33,16 +28,6 @@ class DisableControl extends HideOrDisableBaseControl
     public function Update()
     {
         parent::Update();
-    }
-
-    protected function UnRegisterEvent($Name)
-    {
-        parent::UnRegisterEvent($Name);
-    }
-
-    protected function RegisterEvent($Name, $Source, $Script)
-    {
-        parent:: RegisterEvent($Name, $Source, $Script);
     }
 
     protected function SetHiddenOrDisabled($ObjectID, $Value)

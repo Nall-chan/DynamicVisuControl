@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
-class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseControl
+abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseControl
 {
 
     public function Create()
@@ -10,11 +10,6 @@ class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseControl
         parent::Create();
 
         $this->RegisterPropertyInteger("LinkSource", 0);
-    }
-
-    public function Destroy()
-    {
-        parent::Destroy();
     }
 
     public function ApplyChanges()
@@ -73,25 +68,7 @@ class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseControl
         }
     }
 
-    public function Update()
-    {
-        parent::Update();
-    }
-
-    protected function UnRegisterEvent($Name)
-    {
-        parent::UnRegisterEvent($Name);
-    }
-
-    protected function RegisterEvent($Name, $Source, $Script)
-    {
-        parent::RegisterEvent($Name, $Source, $Script);
-    }
-
-    protected function SetHiddenOrDisabled($ObjectID, $Value)
-    {
-        
-    }
+    abstract protected function SetHiddenOrDisabled($ObjectID, $Value);
 
 }
 

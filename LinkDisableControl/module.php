@@ -5,15 +5,10 @@ require_once(__DIR__ . "/../LinkHideOrLinkDisableBaseControl.php");  // HideDeak
 class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
 {
 
-    public function Create()
-    {
-        parent::Create();
-    }
-
     public function Destroy()
     {
-        parent::Destroy();
         $this->UnRegisterEvent("UpdateLinkDisableControl");
+        parent::Destroy();
     }
 
     public function ApplyChanges()
@@ -22,7 +17,8 @@ class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
         try
         {
             $this->RegisterEvent("UpdateLinkDisableControl", $this->ReadPropertyInteger("Source"), 'LINKDISABLE_Update($_IPS[\'TARGET\']);');
-        } catch (Exception $exc)
+        }
+        catch (Exception $exc)
         {
             trigger_error($exc->getMessage(), $exc->getCode());
             return;
@@ -33,16 +29,6 @@ class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
     public function Update()
     {
         parent::Update();
-    }
-
-    protected function UnRegisterEvent($Name)
-    {
-        parent::UnRegisterEvent($Name);
-    }
-
-    protected function RegisterEvent($Name, $Source, $Script)
-    {
-        parent:: RegisterEvent($Name, $Source, $Script);
     }
 
     protected function SetHiddenOrDisabled($ObjectID, $Value)
