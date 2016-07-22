@@ -2,17 +2,17 @@
 	"elements":
 	[
 		{ "name": "Source", "type": "SelectVariable", "caption": "Variable:"},
-		{ "type": "Label", "label": "Vergleichswert bei Boolean-Variablen"},
-    		{ "name": "ConditionBoolean", "type": "Select", "caption": "Vergleichswert:", 
+		{ "type": "Label", "label": "Condition for bool variable"},
+    		{ "name": "ConditionBoolean", "type": "Select", "caption": "Conditionvalue:", 
 			"options": [ 
-				{ "label": "True/Wahr/Ein", "value": 1 }, 
-				{ "label": "False/Unwahr/Aus", "value": 0 }
+				{ "label": "true/on", "value": 1 }, 
+				{ "label": "false/off", "value": 0 }
                         ]
                 },
-		{ "type": "Label", "label": "Vergleichswert ohne Boolean-Variablen"},
-                { "name": "ConditionValue", "type": "ValidationTextBox", "caption": "Vergleichswert:"},                
-		{ "name": "Invert", "type": "CheckBox", "caption": "Invertieren"},                
-		{ "type": "Label", "label": "Quelle welche verlinkt werden soll:"},
-		{ "name": "LinkSource", "type": "SelectObject", "caption": "Quelle:"}
+		{ "type": "Label", "label": "Conditionvalue without bool variable"},
+                { "name": "ConditionValue", "type": "ValidationTextBox", "caption": "Conditionvalue:"},                
+		{ "name": "Invert", "type": "CheckBox", "caption": "Invert"},                
+		{ "type": "Label", "label": "Target of links:"},
+		{ "name": "LinkSource", "type": "SelectObject", "caption": "Target:"}
 	]	
 }

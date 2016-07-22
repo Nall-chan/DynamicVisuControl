@@ -1,0 +1,18 @@
+{
+    "translations": {
+        "de": {
+            "Variable:": "Variable:",
+            "Condition for bool variable": "Vergleichswert bei Boolean-Variablen",
+            "Conditionvalue": "Vergleichswert",
+            "true/on": "True/Wahr/Ein",
+            "false/off": "False/Unwahr/Aus",
+            "Conditionvalue without bool variable": "Vergleichswert ohne Boolean-Variablen",
+            "Invert": "Invertieren",
+            "Target to disable:": "Ziel welches deaktiviert werden soll:",
+            "Target:": "Ziel:",
+            "Disable": "Deaktivieren",
+            "Taget": "Ziel",
+            "Childs of target": "Unterobjekte vom Ziel"
+        }
+    }
+}
