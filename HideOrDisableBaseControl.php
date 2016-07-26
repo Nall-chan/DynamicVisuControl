@@ -14,7 +14,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     }
 
     
-    protected function HideOrDeaktiv(boolean $hidden)
+    protected function HideOrDeaktiv(bool $hidden)
     {
         if ($this->ReadPropertyBoolean("Invert"))
             $hidden = !$hidden;
