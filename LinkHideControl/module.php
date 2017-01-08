@@ -1,37 +1,42 @@
 <?
 
+/* SetHiddenOrDisabled
+ * @addtogroup dynamicvisucontrol
+ * @{
+ *
+ * @package       DynamicVisuControl
+ * @file          module.php
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ *
+ */
+
 require_once(__DIR__ . "/../LinkHideOrLinkDisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
+/**
+ * LinkHideControl ist die Klasse für das IPS-Modul 'Link Hide Control'.
+ * Erweitert LinkHideOrLinkDisableBaseControl
+ * 
+ * @package       DynamicVisuControl
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ * @example <b>Ohne</b>
+ */
 class LinkHideControl extends LinkHideOrLinkDisableBaseControl
 {
 
-    public function Destroy()
-    {
-        $this->UnRegisterEvent("UpdateLinkHideControl");
-        parent::Destroy();
-    }
-
-    public function ApplyChanges()
-    {
-        parent::ApplyChanges();
-        try
-        {
-            $this->RegisterEvent("UpdateLinkHideControl", $this->ReadPropertyInteger("Source"), 'LINKHIDE_Update($_IPS[\'TARGET\']);');
-        }
-        catch (Exception $exc)
-        {
-            trigger_error($exc->getMessage(), $exc->getCode());
-            return;
-        }
-        $this->Update();
-    }
-
-    public function Update()
-    {
-        parent::Update();
-    }
-
-    protected function SetHiddenOrDisabled($ObjectID, $Value)
+    /**
+     * Steuert das Verstecken
+     * 
+     * @access protected
+     * @param int $ObjectID Das Objekt welches manipuliert werden soll.
+     * @param bool $Value True wenn $ObjectID Versteckt werden soll, false zum anzeigen.
+     */
+    protected function SetHiddenOrDisabled(int $ObjectID, bool $Value)
     {
         if (IPS_GetObject($ObjectID)["ObjectIsHidden"] <> $Value)
             IPS_SetHidden($ObjectID, $Value);
@@ -39,4 +44,4 @@ class LinkHideControl extends LinkHideOrLinkDisableBaseControl
 
 }
 
-?>
+/** @} */

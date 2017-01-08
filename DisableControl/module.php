@@ -1,36 +1,42 @@
 <?
 
+/*
+ * @addtogroup dynamicvisucontrol
+ * @{
+ *
+ * @package       DynamicVisuControl
+ * @file          module.php
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ *
+ */
+
 require_once(__DIR__ . "/../HideOrDisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
+/**
+ * DisableControl ist die Klasse für das IPS-Modul 'Disable Control'.
+ * Erweitert HideOrDisableBaseControl
+ * 
+ * @package       DynamicVisuControl
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ * @example <b>Ohne</b>
+ */
 class DisableControl extends HideOrDisableBaseControl
 {
 
-    public function Destroy()
-    {
-        $this->UnRegisterEvent("UpdateDisableControl");
-        parent::Destroy();
-    }
-
-    public function ApplyChanges()
-    {
-        parent::ApplyChanges();
-        try
-        {
-            $this->RegisterEvent("UpdateDisableControl", $this->ReadPropertyInteger("Source"), 'DISABLE_Update($_IPS[\'TARGET\']);');
-        } catch (Exception $exc)
-        {
-            trigger_error($exc->getMessage(), $exc->getCode());
-            return;
-        }
-        $this->Update();
-    }
-
-    public function Update()
-    {
-        parent::Update();
-    }
-
-    protected function SetHiddenOrDisabled($ObjectID, $Value)
+    /**
+     * Steuert das Deaktivieren 
+     * 
+     * @access protected
+     * @param int $ObjectID Das Objekt welches manipuliert werden soll.
+     * @param bool $Value True wenn $ObjectID Deaktiviert werden soll, false aktivieren.
+     */
+    protected function SetHiddenOrDisabled(int $ObjectID, bool $Value)
     {
         if (IPS_GetObject($ObjectID)["ObjectIsDisabled"] <> $Value)
             IPS_SetDisabled($ObjectID, $Value);
@@ -38,4 +44,4 @@ class DisableControl extends HideOrDisableBaseControl
 
 }
 
-?>
+/** @} */

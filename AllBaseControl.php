@@ -1,4 +1,17 @@
 <?
+
+/*
+ * @addtogroup dynamicvisucontrol
+ * @{
+ *
+ * @package       DynamicVisuControl
+ * @file          AllBaseControl.php
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ *
+ */
 if (@constant('IPS_BASE') == null) //Nur wenn Konstanten noch nicht bekannt sind.
 {
 // --- BASE MESSAGE
@@ -136,11 +149,65 @@ if (@constant('IPS_BASE') == null) //Nur wenn Konstanten noch nicht bekannt sind
     define('FOUND_OLD', 2);         //Device is already configues (InstanceID should be set)
     define('FOUND_CURRENT', 3);     //Device is already configues (InstanceID is from the current/searching Instance)
     define('FOUND_UNSUPPORTED', 4); //Device is not supported by Module
+// --- VarTypes
+    define('vtBoolean', 0);
+    define('vtInteger', 1);
+    define('vtFloat', 2);
+    define('vtString', 3);
+    define('vtArray', 8);
+    define('vtObject', 9);
+// --- ObjectTypes
+    define('otVariable', 2);
+    define('otLink', 6);
 }
 
+/**
+ * HideDeaktivLinkBaseControl ist die Basisklasse für alle Module der Library
+ * Erweitert IPSModule
+ * 
+ * @package       DynamicVisuControl
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ * @example <b>Ohne</b>
+ * @abstract
+ * @property int $SourceID Die IPS-ID der Variable welche als Event verwendet wird.
+ */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
 
+    use DebugHelper;
+
+    /**
+     * Wert einer Eigenschaft aus den InstanceBuffer lesen.
+     * 
+     * @access public
+     * @param string $name Propertyname
+     * @return mixed Value of Name
+     */
+    public function __get($name)
+    {
+        return unserialize($this->GetBuffer($name));
+    }
+
+    /**
+     * Wert einer Eigenschaft in den InstanceBuffer schreiben.
+     * 
+     * @access public
+     * @param string $name Propertyname
+     * @param mixed Value of Name
+     */
+    public function __set($name, $value)
+    {
+        $this->SetBuffer($name, serialize($value));
+    }
+
+    /**
+     * Interne Funktion des SDK.
+     *
+     * @access public
+     */
     public function Create()
     {
         parent::Create();
@@ -148,58 +215,114 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         $this->RegisterPropertyInteger("Source", 0);
         $this->RegisterPropertyInteger("ConditionBoolean", 1);
         $this->RegisterPropertyString("ConditionValue", "");
-        $this->RegisterPropertyBoolean("Invert", FALSE);
+        $this->RegisterPropertyBoolean("Invert", false);
+        $this->SourceID = 0;
     }
-       
-    abstract protected function HideOrDeaktiv(bool $hidden);
-    
-    public function Update()
+
+    /**
+     * Interne Funktion des SDK.
+     *
+     * @access public
+     */
+    public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
-        // prüfen
-//        IPS_LogMessage("CondBoolValue", print_r($this->ReadPropertyInteger("ConditionBoolean"), 1));
-//        IPS_LogMessage("CondValue", print_r($this->ReadPropertyInteger("ConditionValue"), 1));
-//        IPS_LogMessage("IPS", print_r($_IPS, 1));
-        $SourceID = $this->ReadPropertyInteger("Source");
-        if ($SourceID == 0)
+        $this->SendDebug('Message:SenderID', $SenderID, 0);
+        $this->SendDebug('Message:Message', $Message, 0);
+        $this->SendDebug('Message:Data', $Data, 0);
+        switch ($Message)
+        {
+            case IPS_KERNELMESSAGE:
+                switch ($Data[0])
+                {
+                    case KR_READY:
+                        $this->ApplyChanges();
+                        break;
+                }
+                break;
+            case VM_UPDATE:
+                if ($SenderID != $this->ReadPropertyInteger('Source'))
+                    break;
+                $this->Update($Data[0]);
+                break;
+            case VM_DELETE:
+                if ($SenderID != $this->ReadPropertyInteger('Source'))
+                    break;
+                IPS_SetProperty($this->InstanceID, 'Source', 0);
+                IPS_ApplyChanges($this->InstanceID);
+                break;
+        }
+    }
+
+    /**
+     * Interne Funktion des SDK.
+     *
+     * @access public
+     */
+    public function ApplyChanges()
+    {
+        parent::ApplyChanges();
+        $this->RegisterMessage(0, IPS_KERNELMESSAGE);
+        if (IPS_GetKernelRunlevel() <> KR_READY)
             return;
-        if ($_IPS["SENDER"] == "Variable")
+        $OldSourceID = $this->SourceID;
+        $NewSourceID = $this->ReadPropertyInteger("Source");
+        if ($NewSourceID <> $OldSourceID)
         {
-            if ($_IPS["VARIABLE"] <> $this->ReadPropertyInteger("Source"))
-            {
-                trigger_error("Error processing Eventdata", E_USER_WARNING);
-                return;
-            }
-            $Value = $_IPS["VALUE"];
+            $this->UnregisterVariableWatch($OldSourceID);
+            $this->RegisterVariableWatch($NewSourceID);
+            $this->SourceID = $NewSourceID;
         }
-        else
-        {
-            $Value = GetValue($SourceID);
-        }
-//        IPS_LogMessage("IPS", print_r($Value, 1));
+        if ($NewSourceID > 0)
+            $this->Update(GetValue($NewSourceID));
+
+        $this->UnregisterTimer("UpdateHideControl");
+        $this->UnregisterTimer("UpdateLinkHideControl");
+        $this->UnregisterTimer("UpdateDisableControl");
+        $this->UnregisterTimer("UpdateLinkDisableControl");
+    }
+
+    /**
+     * Steuert das verstecken oder deaktivieren 
+     * 
+     * @abstract
+     * @access protected
+     * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
+     */
+    abstract protected function HideOrDeaktiv(bool $hidden);
+
+    /**
+     * Wird durch ein VariablenUpdate aus MessageSink aufgerufen und steuert mit HideOrDeaktiv das Ziel / die Ziele.
+     * 
+     * @access protected
+     * @param mixed $Value Der neue Wert der Variable.
+     */
+    protected function Update($Value)
+    {
+        $SourceID = $this->ReadPropertyInteger("Source");
         $Source = IPS_GetVariable($SourceID);
         switch ($Source["VariableType"])
         {
-            case 0: // bool
+            case vtBoolean:
                 if ($this->ReadPropertyInteger("ConditionBoolean") == (bool) $Value)
                     $this->HideOrDeaktiv(true);
                 else
                     $this->HideOrDeaktiv(false);
                 break;
-            case 1: // int
+            case vtInteger:
                 if ((int) $this->ReadPropertyString("ConditionValue") == (int) $Value)
                     $this->HideOrDeaktiv(true);
                 else
                     $this->HideOrDeaktiv(false);
 
                 break;
-            case 2: // float
+            case vtFloat:
                 if ((float) $this->ReadPropertyString("ConditionValue") == (float) $Value)
                     $this->HideOrDeaktiv(true);
                 else
                     $this->HideOrDeaktiv(false);
 
                 break;
-            case 3: // string
+            case vtString:
                 if ((string) $this->ReadPropertyString("ConditionValue") == (string) $Value)
                     $this->HideOrDeaktiv(true);
                 else
@@ -209,57 +332,127 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         }
     }
 
-    protected function UnRegisterEvent($Name)
+    /**
+     * Registriert eine Überwachung einer Variable.
+     *
+     * @access protected
+     * @param int $VarId IPS-ID der Variable.
+     */
+    protected function RegisterVariableWatch(int $VarId)
     {
-        $id = @IPS_GetObjectIDByIdent($Name, $this->InstanceID);
-        if ($id > 0)
-        {
-            if (!IPS_EventExists($id))
-                throw new Exception('Event not present',E_USER_WARNING);
-            IPS_DeleteEvent($id);
-        }
+        if ($VarId == 0)
+            return;
+        $this->SendDebug('RegisterVM', $VarId, 0);
+        $this->RegisterMessage($VarId, VM_DELETE);
+        $this->RegisterMessage($VarId, VM_UPDATE);
     }
 
-    protected function RegisterEvent($Name, $Source, $Script)
+    /**
+     * Deregistriert eine Überwachung einer Variable.
+     *
+     * @access protected
+     * @param int $VarId IPS-ID der Variable.
+     */
+    protected function UnregisterVariableWatch(int $VarId)
+    {
+        if ($VarId == 0)
+            return;
+
+        $this->SendDebug('UnregisterVM', $VarId, 0);
+        $this->UnregisterMessage($VarId, VM_DELETE);
+        $this->UnregisterMessage($VarId, VM_UPDATE);
+    }
+
+    /**
+     * Löscht einen Timer.
+     * 
+     * @param string $Name Name des Timers.
+     * @throws Exception Wenn Timer nicht vorhanden.
+     */
+    protected function UnregisterTimer($Name)
     {
         $id = @IPS_GetObjectIDByIdent($Name, $this->InstanceID);
-        if ($id === false)
-            $id = 0;
         if ($id > 0)
         {
             if (!IPS_EventExists($id))
-                throw new Exception("Ident with name " . $Name . " is used for wrong object type",E_USER_WARNING);
-
-            if (IPS_GetEvent($id)['EventType'] <> 0)
-            {
-                IPS_DeleteEvent($id);
-                $id = 0;
-            }
-        }
-        if ($id == 0)
-        {
-            $id = IPS_CreateEvent(0);
-            IPS_SetParent($id, $this->InstanceID);
-            IPS_SetIdent($id, $Name);
-        }
-        IPS_SetName($id, $Name);
-        IPS_SetHidden($id, true);
-        IPS_SetEventScript($id, $Script);
-
-        if ($Source > 0)
-        {
-            IPS_SetEventTrigger($id, 0, $Source);
-            if (!IPS_GetEvent($id)['EventActive'])
-                IPS_SetEventActive($id, true);
-        } else
-        {
-            IPS_SetEventTrigger($id, 0, 0);
-
-            if (IPS_GetEvent($id)['EventActive'])
-                IPS_SetEventActive($id, false);
+                return;
+            IPS_DeleteEvent($id);
         }
     }
 
 }
 
-?>
+/**
+ *  DebugHelper Trait.
+ *
+ * @package       NoTrigger
+ * @author        Michael Tröger <micha@nall-chan.net>
+ * @copyright     2016 Michael Tröger
+ * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ * @version       2.0
+ * @example <b>Ohne</b>
+ */
+trait DebugHelper
+{
+
+    /**
+     * Ergänzt SetBuffer um eine Debug Ausgabe.
+     *
+     * @access protected
+     * @param string $Name Name des Buffer.
+     * @param string $Data Daten für den Buffer.
+     */
+    protected function SetBuffer($Name, $Data)
+    {
+        $this->SendDebug('SetBuffer ' . $Name, $Data, 0);
+        parent::SetBuffer($Name, $Data);
+    }
+
+    /**
+     * Ergänzt GetBuffer um eine Debug Ausgabe.
+     *
+     * @access protected
+     * @param string $Name Name des Buffer.
+     * @return string Daten aus den Buffer.
+     */
+    protected function GetBuffer($Name)
+    {
+        $Data = parent::GetBuffer($Name);
+        $this->SendDebug('GetBuffer ' . $Name, $Data, 0);
+        return $Data;
+    }
+
+    /**
+     * Ergänzt SendDebug um Möglichkeit Objekte und Array auszugeben.
+     *
+     * @access protected
+     * @param string $Message Nachricht für Data.
+     * @param mixed $Data Daten für die Ausgabe.
+     * @return int $Format Ausgabeformat für Strings.
+     */
+    protected function SendDebug($Message, $Data, $Format)
+    {
+        if (is_object($Data))
+        {
+            foreach ($Data as $Key => $DebugData)
+            {
+
+                $this->SendDebug($Message . ":" . $Key, $DebugData, 0);
+            }
+        }
+        else if (is_array($Data))
+        {
+            foreach ($Data as $Key => $DebugData)
+            {
+                $this->SendDebug($Message . ":" . $Key, $DebugData, 0);
+            }
+        }
+        else
+        {
+            parent::SendDebug($Message, $Data, $Format);
+        }
+    }
+
+}
+
+/** @} */
