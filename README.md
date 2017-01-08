@@ -10,9 +10,9 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
 2. [Voraussetzungen](#2-voraussetzungen)
 3. [Installation](#3-installation)
 4. [Funktionsreferenz](#4-funktionsreferenz) 
-5. [Parameter / Modul-Infos] (#7-parameter--modul-infos)
-6. [Anhang](#8-anhang)
-7. [Lizenz] (#9-lizenz)
+5. [Parameter / Modul-Infos](#5-parameter--modul-infos)
+6. [Anhang](#6-anhang)
+7. [Lizenz](#7-lizenz)
 
 ## 1. Funktionsumfang
 
