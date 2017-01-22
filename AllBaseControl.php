@@ -275,10 +275,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         if ($NewSourceID > 0)
             $this->Update(GetValue($NewSourceID));
 
-        $this->UnregisterTimer("UpdateHideControl");
-        $this->UnregisterTimer("UpdateLinkHideControl");
-        $this->UnregisterTimer("UpdateDisableControl");
-        $this->UnregisterTimer("UpdateLinkDisableControl");
     }
 
     /**
@@ -363,22 +359,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         $this->UnregisterMessage($VarId, VM_UPDATE);
     }
 
-    /**
-     * Löscht einen Timer.
-     * 
-     * @param string $Name Name des Timers.
-     * @throws Exception Wenn Timer nicht vorhanden.
-     */
-    protected function UnregisterTimer($Name)
-    {
-        $id = @IPS_GetObjectIDByIdent($Name, $this->InstanceID);
-        if ($id > 0)
-        {
-            if (!IPS_EventExists($id))
-                return;
-            IPS_DeleteEvent($id);
-        }
-    }
 
 }
 
