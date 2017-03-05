@@ -27,8 +27,8 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
  Ist der Vergleich erfolgreich (= wahr) so wird das Ziel-Objekt (3) versteckt.  
  Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
  
-![Doku/HideControl_1.png](Doku/HideControl_1.png)  
-![Doku/HideControl_2.png](Doku/HideControl_2.png)  
+![Doku/HideControl_1.png](docs//HideControl_1.png)  
+![Doku/HideControl_2.png](docs//HideControl_2.png)  
 
  1. Die Variable welche zum Vergleich herangezogen wird.  
  2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
@@ -52,7 +52,7 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
  Ist der Vergleich erfolgreich (= wahr) so wird das Ziel-Objekt (3) deaktiviert.  
  Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
  
-![Doku/DisableControl_2.png](Doku/DisableControl_2.png)  
+![Doku/DisableControl_2.png](docs//DisableControl_2.png)  
 
  1. Die Variable welche zum Vergleich herangezogen wird.  
  2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
@@ -79,8 +79,8 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
  Ist der Vergleich erfolgreich (= wahr) so werden die vorher erzeugten Links versteckt.  
  Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
 
-![Doku/LinkHideControl_1](Doku/LinkHideControl_1.png)  
-![Doku/LinkHideControl_2](Doku/LinkHideControl_2.png)  
+![Doku/LinkHideControl_1](docs//LinkHideControl_1.png)  
+![Doku/LinkHideControl_2](docs//LinkHideControl_2.png)  
 
  1. Die Variable welche zum Vergleich herangezogen wird.  
  2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
@@ -100,7 +100,7 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten in 
  Ist der Vergleich erfolgreich (= wahr) so werden die vorher erzeugten Links versteckt.  
  Optional kann der Parameter Invertieren genutzt werden um den Verleich umzudrehen.  
 
-![Doku/LinkDisableControl_2.png](Doku/LinkDisableControl_2.png)  
+![Doku/LinkDisableControl_2.png](docs//LinkDisableControl_2.png)  
 
  1. Die Variable welche zum Vergleich herangezogen wird.  
  2. Sollte es sich bei 1 um eine Variable vom Typ ´boolean´ handeln, so ist hier der Vergleichswert einzutragen.  
