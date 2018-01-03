@@ -13,7 +13,7 @@
  *
  */
 
-require_once(__DIR__ . "/../LinkHideOrLinkDisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
+require_once(__DIR__ . "/../libs/LinkHideOrLinkDisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
 
 /**
  * LinkDisableControl ist die Klasse für das IPS-Modul 'Link Disable Control'.

@@ -98,7 +98,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 
         if ($this->ReadPropertyInteger("Target") == 0)
         {
-            trigger_error("Target invalid.", E_USER_NOTICE);
+            trigger_error($this->Translate("Target invalid."), E_USER_NOTICE);
             return;
         }
 
@@ -106,7 +106,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 
         if (!IPS_ObjectExists($Target))
         {
-            trigger_error("Target invalid.", E_USER_NOTICE);
+            trigger_error($this->Translate("Target invalid."), E_USER_NOTICE);
             return;
         }
 
@@ -130,7 +130,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
         }
         else
         {
-            trigger_error("TargetType invalid.", E_USER_NOTICE);
+            trigger_error($this->Translate("Type of target is invalid."), E_USER_NOTICE);
             return;
         }
     }

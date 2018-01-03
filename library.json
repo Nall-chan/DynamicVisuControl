@@ -1,13 +1,13 @@
 {
     "id": "{0361B997-8700-4F9C-8569-827BD44E29F2}",
-    "author": "Michael Tröger",
-    "name": "DynamicVisuControl",
+    "author": "Michael Tr\u00f6ger",
+    "name": "DynamicVisuControl Library",
     "url": "https://github.com/Nall-chan/IPSDynamicVisuControl",
-    "version": "2.00",
-    "build": 101,
-    "date": 1483881676,
-    "title": "Enthält verschiedene Module für die dynamische Visualisierung von Objekten in IP-Symcon.",
-    "description": "Versteckt/Deaktiviert vorhandene Objekt oder dessen direkten Unterobjekte in Abhängigkeit einer Variable und eines Vergleichswertes.",
-    "tags": ["WebFront", "Visualisierung", "vertecken", "deaktivieren"],
-    "req_ips_version": "4.1"
+    "compatibility": {
+        "version": "4.3",
+        "date": 1498241677
+    },
+    "version": "2.01",
+    "build": 121,
+    "date": 1498241677
 }

@@ -16,8 +16,8 @@ if (@constant('IPS_BASE') == null) //Nur wenn Konstanten noch nicht bekannt sind
 {
 // --- BASE MESSAGE
     define('IPS_BASE', 10000);                             //Base Message
-    define('IPS_KERNELSHUTDOWN', IPS_BASE + 1);            //Pre Shutdown Message, Runlevel UNINIT Follows
-    define('IPS_KERNELSTARTED', IPS_BASE + 2);             //Post Ready Message
+    define('IPS_KERNELSTARTED', IPS_BASE + 1);             //Post Ready Message
+    define('IPS_KERNELSHUTDOWN', IPS_BASE + 2);            //Pre Shutdown Message, Runlevel UNINIT Follows
 // --- KERNEL
     define('IPS_KERNELMESSAGE', IPS_BASE + 100);           //Kernel Message
     define('KR_CREATE', IPS_KERNELMESSAGE + 1);            //Kernel is beeing created
@@ -375,32 +375,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
 trait DebugHelper
 {
 
-    /**
-     * Ergänzt SetBuffer um eine Debug Ausgabe.
-     *
-     * @access protected
-     * @param string $Name Name des Buffer.
-     * @param string $Data Daten für den Buffer.
-     */
-    protected function SetBuffer($Name, $Data)
-    {
-        $this->SendDebug('SetBuffer ' . $Name, $Data, 0);
-        parent::SetBuffer($Name, $Data);
-    }
-
-    /**
-     * Ergänzt GetBuffer um eine Debug Ausgabe.
-     *
-     * @access protected
-     * @param string $Name Name des Buffer.
-     * @return string Daten aus den Buffer.
-     */
-    protected function GetBuffer($Name)
-    {
-        $Data = parent::GetBuffer($Name);
-        $this->SendDebug('GetBuffer ' . $Name, $Data, 0);
-        return $Data;
-    }
 
     /**
      * Ergänzt SendDebug um Möglichkeit Objekte und Array auszugeben.

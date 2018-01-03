@@ -11,8 +11,9 @@
             "Target to disable:": "Ziel welches deaktiviert werden soll:",
             "Target:": "Ziel:",
             "Disable": "Deaktivieren",
-            "Taget": "Ziel",
-            "Childs of target": "Unterobjekte vom Ziel"
+            "Childs of target": "Unterobjekte vom Ziel",
+            "Target invalid.": "Ziel ungültig",
+            "Type of target is invalid.": "Typ vom Ziel nicht gültig."
         }
     }
 }
