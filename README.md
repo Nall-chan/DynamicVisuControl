@@ -210,4 +210,4 @@ Die Library ist für die nicht kommzerielle Nutzung kostenlos, Schenkungen als U
 
 ## 7. Lizenz  
 
-[CC BY-NC-SA 4.0] (https://creativecommons.org/licenses/by-nc-sa/4.0/)  
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)  
