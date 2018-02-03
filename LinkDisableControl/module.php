@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
  * @addtogroup dynamicvisucontrol
@@ -18,7 +18,7 @@ require_once(__DIR__ . "/../libs/LinkHideOrLinkDisableBaseControl.php");  // Hid
 /**
  * LinkDisableControl ist die Klasse für das IPS-Modul 'Link Disable Control'.
  * Erweitert LinkHideOrLinkDisableBaseControl
- * 
+ *
  * @package       DynamicVisuControl
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2016 Michael Tröger
@@ -30,18 +30,18 @@ class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
 {
 
     /**
-     * Steuert das Deaktivieren 
-     * 
+     * Steuert das Deaktivieren
+     *
      * @access protected
      * @param int $ObjectID Das Objekt welches manipuliert werden soll.
      * @param bool $Value True wenn $ObjectID Deaktiviert werden soll, false zum aktivieren.
      */
     protected function SetHiddenOrDisabled(int $ObjectID, bool $Value)
     {
-        if (IPS_GetObject($ObjectID)["ObjectIsDisabled"] <> $Value)
+        if (IPS_GetObject($ObjectID)["ObjectIsDisabled"] <> $Value) {
             IPS_SetDisabled($ObjectID, $Value);
+        }
     }
-
 }
 
 /** @} */

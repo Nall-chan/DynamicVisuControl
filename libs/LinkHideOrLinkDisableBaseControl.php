@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
  * @addtogroup dynamicvisucontrol
@@ -17,7 +17,7 @@ require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Kl
 /**
  * LinkHideOrLinkDisableBaseControl ist die Basisklasse für alle Link-Module der Library
  * Erweitert HideDeaktivLinkBaseControl
- * 
+ *
  * @package       DynamicVisuControl
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2016 Michael Tröger
@@ -57,27 +57,26 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     private function RefreshLinks()
     {
-        if ($this->ReadPropertyInteger("LinkSource") == 0)
-        {
-            foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child)
-            {
-                if (IPS_GetObject($Child)['ObjectType'] == otLink)
+        if ($this->ReadPropertyInteger("LinkSource") == 0) {
+            foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {
+                if (IPS_GetObject($Child)['ObjectType'] == otLink) {
                     IPS_DeleteLink($Child);
+                }
             }
             return;
         }
         $present = array();
-        foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child)
-        {
-            if (IPS_GetObject($Child)['ObjectType'] == otLink)
+        foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {
+            if (IPS_GetObject($Child)['ObjectType'] == otLink) {
                 $present[] = IPS_GetLink($Child)['TargetID'];
+            }
         }
 
         $create = array_diff(IPS_GetChildrenIDs($this->ReadPropertyInteger("LinkSource")), $present);
-        foreach ($create as $Target)
-        {
-            if (IPS_GetObject($Target)["ObjectIsHidden"])
+        foreach ($create as $Target) {
+            if (IPS_GetObject($Target)["ObjectIsHidden"]) {
                 continue;
+            }
             $Link = IPS_CreateLink();
             IPS_SetParent($Link, $this->InstanceID);
             IPS_SetName($Link, IPS_GetName($Target));
@@ -86,33 +85,35 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     }
 
     /**
-     * Steuert das verstecken oder deaktivieren 
-     * 
+     * Steuert das verstecken oder deaktivieren
+     *
      * @access protected
      * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
     protected function HideOrDeaktiv(bool $hidden)
     {
-        if ($this->ReadPropertyBoolean("Invert"))
+        if ($this->ReadPropertyBoolean("Invert")) {
             $hidden = !$hidden;
+        }
 
         // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
         $Source = $this->ReadPropertyInteger("Source");
         $Childs = IPS_GetChildrenIDs($this->InstanceID);
 
-        foreach ($Childs as $Child)
-        {
-            if (IPS_GetObject($Child)['ObjectType'] <> otLink)
+        foreach ($Childs as $Child) {
+            if (IPS_GetObject($Child)['ObjectType'] <> otLink) {
                 continue;
-            if (IPS_GetLink($Child)['TargetID'] == $Source)
+            }
+            if (IPS_GetLink($Child)['TargetID'] == $Source) {
                 continue;
+            }
             $this->SetHiddenOrDisabled($Child, $hidden);
         }
     }
 
     /**
-     * Steuert das verstecken oder deaktivieren 
-     * 
+     * Steuert das verstecken oder deaktivieren
+     *
      * @abstract
      * @access protected
      * @param int $ObjectID Das Objekt welches manipuliert werden soll.
@@ -120,5 +121,3 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
 }
-
-?>
