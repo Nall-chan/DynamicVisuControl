@@ -42,7 +42,6 @@ class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
             IPS_SetDisabled($ObjectID, $Value);
         }
     }
-
 }
 
 /** @} */

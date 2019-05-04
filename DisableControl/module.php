@@ -42,7 +42,6 @@ class DisableControl extends HideOrDisableBaseControl
             IPS_SetDisabled($ObjectID, $Value);
         }
     }
-
 }
 
 /** @} */
