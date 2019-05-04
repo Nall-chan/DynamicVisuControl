@@ -89,7 +89,6 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
      */
     protected function RegisterTarget(int $NewTargetID)
     {
-
         $OldTargetID = $this->TargetID;
         if ($NewTargetID <> $OldTargetID) {
             if ($OldTargetID > 0) {
