@@ -32,7 +32,6 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
-
     use \dynamicvisucontrol\DebugHelper,
         \dynamicvisucontrol\BufferHelper;
     /**
@@ -189,7 +188,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         $this->UnregisterMessage($VarId, VM_UPDATE);
         $this->UnregisterReference($VarId);
     }
-
 }
 
 /** @} */
