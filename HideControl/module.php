@@ -42,5 +42,4 @@ class HideControl extends HideOrDisableBaseControl
             IPS_SetHidden($ObjectID, $Value);
         }
     }
-
 }
