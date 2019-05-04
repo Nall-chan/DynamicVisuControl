@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_contents(__DIR__ . '/helper/DebugHelper.php') . '}');
+eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_contents(__DIR__ . '/helper/BufferHelper.php') . '}');
 
 /*
  * @addtogroup dynamicvisucontrol
@@ -10,9 +11,9 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2018 Michael Tröger
+ * @copyright     2019 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       2.02
+ * @version       3.0
  *
  */
 
@@ -22,9 +23,9 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  *
  * @package       DynamicVisuControl
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2016 Michael Tröger
+ * @copyright     2019 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       2.0
+ * @version       3.0
  * @example <b>Ohne</b>
  * @abstract
  * @property int $SourceID Die IPS-ID der Variable welche als Event verwendet wird.
@@ -32,31 +33,8 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
 
-    use \dynamicvisucontrol\DebugHelper;
-    /**
-     * Wert einer Eigenschaft aus den InstanceBuffer lesen.
-     *
-     * @access public
-     * @param string $name Propertyname
-     * @return mixed Value of Name
-     */
-    public function __get($name)
-    {
-        return unserialize($this->GetBuffer($name));
-    }
-
-    /**
-     * Wert einer Eigenschaft in den InstanceBuffer schreiben.
-     *
-     * @access public
-     * @param string $name Propertyname
-     * @param mixed Value of Name
-     */
-    public function __set($name, $value)
-    {
-        $this->SetBuffer($name, serialize($value));
-    }
-
+    use \dynamicvisucontrol\DebugHelper,
+        \dynamicvisucontrol\BufferHelper;
     /**
      * Interne Funktion des SDK.
      *
@@ -81,12 +59,8 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
         switch ($Message) {
-            case IPS_KERNELMESSAGE:
-                switch ($Data[0]) {
-                    case KR_READY:
-                        $this->ApplyChanges();
-                        break;
-                }
+            case IPS_KERNELSTARTED:
+                $this->ApplyChanges();
                 break;
             case VM_UPDATE:
                 if ($SenderID != $this->ReadPropertyInteger('Source')) {
@@ -112,7 +86,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-        $this->RegisterMessage(0, IPS_KERNELMESSAGE);
+        $this->RegisterMessage(0, IPS_KERNELSTARTED);
         if (IPS_GetKernelRunlevel() <> KR_READY) {
             return;
         }

@@ -4,10 +4,9 @@
     "name": "DynamicVisuControl Library",
     "url": "https://github.com/Nall-chan/IPSDynamicVisuControl",
     "compatibility": {
-        "version": "4.3",
-        "date": 1498241677
+        "version": "5.1"
     },
-    "version": "2.01",
-    "build": 121,
-    "date": 1498241677
+    "version": "3.00",
+    "build": 150,
+    "date": 1556897642 
 }

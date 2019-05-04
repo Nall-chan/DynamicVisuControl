@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2016 Michael Tröger
+ * @copyright     2019 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       2.0
+ * @version       3.0
  *
  */
 require_once(__DIR__ . '/AllBaseControl.php');  // HideDeaktivLinkBaseControl Klasse
@@ -21,9 +21,9 @@ require_once(__DIR__ . '/AllBaseControl.php');  // HideDeaktivLinkBaseControl Kl
  *
  * @package       DynamicVisuControl
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2016 Michael Tröger
+ * @copyright     2019 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       2.0
+ * @version       3.0
  * @example <b>Ohne</b>
  * @abstract
  */
