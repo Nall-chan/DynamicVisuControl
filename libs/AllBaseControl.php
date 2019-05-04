@@ -32,6 +32,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
+
     use \dynamicvisucontrol\DebugHelper,
         \dynamicvisucontrol\BufferHelper;
     /**
@@ -59,20 +60,17 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     {
         switch ($Message) {
             case IPS_KERNELSTARTED:
-                $this->ApplyChanges();
+                $this->KernelReady();
                 break;
             case VM_UPDATE:
-                if ($SenderID != $this->ReadPropertyInteger('Source')) {
-                    break;
+                if ($SenderID == $this->SourceID) {
+                    $this->Update($Data[0]);
                 }
-                $this->Update($Data[0]);
                 break;
             case VM_DELETE:
-                if ($SenderID != $this->ReadPropertyInteger('Source')) {
-                    break;
+                if ($SenderID == $this->SourceID) {
+                    $this->RegisterTrigger(0);
                 }
-                IPS_SetProperty($this->InstanceID, 'Source', 0);
-                IPS_ApplyChanges($this->InstanceID);
                 break;
         }
     }
@@ -89,15 +87,39 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         if (IPS_GetKernelRunlevel() <> KR_READY) {
             return;
         }
-        $OldSourceID = $this->SourceID;
-        $NewSourceID = $this->ReadPropertyInteger('Source');
-        if ($NewSourceID <> $OldSourceID) {
-            $this->UnregisterVariableWatch($OldSourceID);
-            $this->RegisterVariableWatch($NewSourceID);
-            $this->SourceID = $NewSourceID;
+        $this->RegisterTrigger($this->ReadPropertyInteger('Source'));
+        if ($this->SourceID > 0) {
+            $this->Update(GetValue($this->SourceID));
         }
-        if ($NewSourceID > 0) {
-            $this->Update(GetValue($NewSourceID));
+    }
+
+    /**
+     * Wird aufgerufen wenn der IPS Betriebsbereit wird.
+     */
+    protected function KernelReady()
+    {
+        $this->RegisterTrigger($this->ReadPropertyInteger('Source'));
+        if ($this->SourceID > 0) {
+            $this->Update(GetValue($this->SourceID));
+        }
+    }
+
+    /**
+     * Registriert die neue TriggerVariable
+     */
+    protected function RegisterTrigger(int $NewSourceID)
+    {
+        $OldSourceID = $this->SourceID;
+        if ($NewSourceID <> $OldSourceID) {
+            if ($OldSourceID > 0) {
+                $this->UnregisterVariableWatch($OldSourceID);
+            }
+            if ($NewSourceID > 0) {
+                if (IPS_VariableExists($NewSourceID)) {
+                    $this->RegisterVariableWatch($NewSourceID);
+                }
+            }
+            $this->SourceID = $NewSourceID;
         }
     }
 
@@ -117,39 +139,19 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
      */
     protected function Update($Value)
     {
-        $SourceID = $this->ReadPropertyInteger('Source');
-        $Source = IPS_GetVariable($SourceID);
+        $Source = IPS_GetVariable($this->SourceID);
         switch ($Source['VariableType']) {
             case VARIABLETYPE_BOOLEAN:
-                if ($this->ReadPropertyInteger('ConditionBoolean') == (bool) $Value) {
-                    $this->HideOrDeaktiv(true);
-                } else {
-                    $this->HideOrDeaktiv(false);
-                }
+                $this->HideOrDeaktiv($this->ReadPropertyInteger('ConditionBoolean') == (bool) $Value);
                 break;
             case VARIABLETYPE_INTEGER:
-                if ((int) $this->ReadPropertyString('ConditionValue') == (int) $Value) {
-                    $this->HideOrDeaktiv(true);
-                } else {
-                    $this->HideOrDeaktiv(false);
-                }
-
+                $this->HideOrDeaktiv((int) $this->ReadPropertyString('ConditionValue') == (int) $Value);
                 break;
             case VARIABLETYPE_FLOAT:
-                if ((float) $this->ReadPropertyString('ConditionValue') == (float) $Value) {
-                    $this->HideOrDeaktiv(true);
-                } else {
-                    $this->HideOrDeaktiv(false);
-                }
-
+                $this->HideOrDeaktiv((float) $this->ReadPropertyString('ConditionValue') == (float) $Value);
                 break;
             case VARIABLETYPE_STRING:
-                if ((string) $this->ReadPropertyString('ConditionValue') == (string) $Value) {
-                    $this->HideOrDeaktiv(true);
-                } else {
-                    $this->HideOrDeaktiv(false);
-                }
-
+                $this->HideOrDeaktiv((string) $this->ReadPropertyString('ConditionValue') == (string) $Value);
                 break;
         }
     }
@@ -165,7 +167,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         if ($VarId == 0) {
             return;
         }
-        $this->SendDebug('RegisterVM', $VarId, 0);
+        $this->SendDebug('RegisterVariableWatch', $VarId, 0);
         $this->RegisterMessage($VarId, VM_DELETE);
         $this->RegisterMessage($VarId, VM_UPDATE);
         $this->RegisterReference($VarId);
@@ -183,11 +185,12 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
             return;
         }
 
-        $this->SendDebug('UnregisterVM', $VarId, 0);
+        $this->SendDebug('UnregisterVariableWatch', $VarId, 0);
         $this->UnregisterMessage($VarId, VM_DELETE);
         $this->UnregisterMessage($VarId, VM_UPDATE);
         $this->UnregisterReference($VarId);
     }
+
 }
 
 /** @} */

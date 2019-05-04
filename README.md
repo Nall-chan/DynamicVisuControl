@@ -198,7 +198,8 @@ Die Library ist für die nicht kommzerielle Nutzung kostenlos, Schenkungen als U
 **Changlog:** 
  
 Version 3.00:  
-- Release für IPS 5.1 und den Module-Store   
+- Release für IPS 5.1 und den Module-Store  
+- IPS_SetProperty und IPS_Applychanges auf sich selbst entfernt   
 
 Version 2.02:
 - Fixes für IPS 5.0

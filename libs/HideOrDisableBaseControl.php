@@ -54,11 +54,9 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
         parent::MessageSink($TimeStamp, $SenderID, $Message, $Data);
         switch ($Message) {
             case OM_UNREGISTER:
-                if ($SenderID != $this->ReadPropertyInteger('Target')) {
-                    break;
+                if ($SenderID == $this->TargetID) {
+                    $this->RegisterTarget(0);
                 }
-                IPS_SetProperty($this->InstanceID, 'Target', 0);
-                IPS_ApplyChanges($this->InstanceID);
                 break;
         }
     }
@@ -74,16 +72,35 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
         if (IPS_GetKernelRunlevel() <> KR_READY) {
             return;
         }
+        $this->RegisterTarget($this->ReadPropertyInteger('Target'));
+    }
+
+    /**
+     * Wird aufgerufen wenn der IPS Betriebsbereit wird.
+     */
+    protected function KernelReady()
+    {
+        parent::KernelReady();
+        $this->RegisterTarget($this->ReadPropertyInteger('Target'));
+    }
+
+    /**
+     * Registriert die neue TriggerVariable
+     */
+    protected function RegisterTarget(int $NewTargetID)
+    {
+
         $OldTargetID = $this->TargetID;
-        $NewTargetID = $this->ReadPropertyInteger('Target');
         if ($NewTargetID <> $OldTargetID) {
             if ($OldTargetID > 0) {
                 $this->UnregisterMessage($OldTargetID, OM_UNREGISTER);
                 $this->UnregisterReference($OldTargetID);
             }
             if ($NewTargetID > 0) {
-                $this->RegisterMessage($NewTargetID, OM_UNREGISTER);
-                $this->RegisterReference($OldTargetID);
+                if (IPS_ObjectExists($NewTargetID)) {
+                    $this->RegisterMessage($NewTargetID, OM_UNREGISTER);
+                    $this->RegisterReference($OldTargetID);
+                }
             }
             $this->TargetID = $NewTargetID;
         }
