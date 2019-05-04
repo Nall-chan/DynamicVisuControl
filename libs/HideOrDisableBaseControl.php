@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * @addtogroup dynamicvisucontrol
  * @{
@@ -12,7 +13,7 @@
  * @version       2.0
  *
  */
-require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
+require_once(__DIR__ . '/AllBaseControl.php');  // HideDeaktivLinkBaseControl Klasse
 
 /**
  * HideOrDisableBaseControl ist die Basisklasse für alle nicht Link-Module der Library
@@ -29,7 +30,6 @@ require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Kl
  */
 abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 {
-
     /**
      * Interne Funktion des SDK.
      *
@@ -39,8 +39,8 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     {
         parent::Create();
 
-        $this->RegisterPropertyInteger("Target", 0);
-        $this->RegisterPropertyInteger("TargetType", 1);
+        $this->RegisterPropertyInteger('Target', 0);
+        $this->RegisterPropertyInteger('TargetType', 1);
         $this->TargetID = 0;
     }
 
@@ -75,13 +75,15 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
             return;
         }
         $OldTargetID = $this->TargetID;
-        $NewTargetID = $this->ReadPropertyInteger("Target");
+        $NewTargetID = $this->ReadPropertyInteger('Target');
         if ($NewTargetID <> $OldTargetID) {
             if ($OldTargetID > 0) {
                 $this->UnregisterMessage($OldTargetID, OM_UNREGISTER);
+                $this->UnregisterReference($OldTargetID);
             }
             if ($NewTargetID > 0) {
                 $this->RegisterMessage($NewTargetID, OM_UNREGISTER);
+                $this->RegisterReference($OldTargetID);
             }
             $this->TargetID = $NewTargetID;
         }
@@ -95,32 +97,32 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
      */
     protected function HideOrDeaktiv(bool $hidden)
     {
-        if ($this->ReadPropertyBoolean("Invert")) {
+        if ($this->ReadPropertyBoolean('Invert')) {
             $hidden = !$hidden;
         }
 
-        if ($this->ReadPropertyInteger("Target") == 0) {
-            trigger_error($this->Translate("Target invalid."), E_USER_NOTICE);
+        if ($this->ReadPropertyInteger('Target') == 0) {
+            trigger_error($this->Translate('Target invalid.'), E_USER_NOTICE);
             return;
         }
 
-        $Target = $this->ReadPropertyInteger("Target");
+        $Target = $this->ReadPropertyInteger('Target');
 
         if (!IPS_ObjectExists($Target)) {
-            trigger_error($this->Translate("Target invalid."), E_USER_NOTICE);
+            trigger_error($this->Translate('Target invalid.'), E_USER_NOTICE);
             return;
         }
 
-        if ($this->ReadPropertyInteger("TargetType") == 0) {
+        if ($this->ReadPropertyInteger('TargetType') == 0) {
             $this->SetHiddenOrDisabled($Target, $hidden);
-        } elseif ($this->ReadPropertyInteger("TargetType") == 1) {
-            $Source = $this->ReadPropertyInteger("Source");
+        } elseif ($this->ReadPropertyInteger('TargetType') == 1) {
+            $Source = $this->ReadPropertyInteger('Source');
             $Childs = IPS_GetChildrenIDs($Target);
             foreach ($Childs as $Child) {
                 if ($Child == $Source) {
                     continue;
                 }
-                if (IPS_GetObject($Child)['ObjectType'] == otLink) {
+                if (IPS_GetObject($Child)['ObjectType'] == OBJECTTYPE_LINK) {
                     if (IPS_GetLink($Child)['TargetID'] == $Source) {
                         continue;
                     }
@@ -128,7 +130,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
                 $this->SetHiddenOrDisabled($Child, $hidden);
             }
         } else {
-            trigger_error($this->Translate("Type of target is invalid."), E_USER_NOTICE);
+            trigger_error($this->Translate('Type of target is invalid.'), E_USER_NOTICE);
             return;
         }
     }

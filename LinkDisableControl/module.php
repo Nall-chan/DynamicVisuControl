@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * @addtogroup dynamicvisucontrol
  * @{
@@ -13,7 +14,7 @@
  *
  */
 
-require_once(__DIR__ . "/../libs/LinkHideOrLinkDisableBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
+require_once(__DIR__ . '/../libs/LinkHideOrLinkDisableBaseControl.php');  // HideDeaktivLinkBaseControl Klasse
 
 /**
  * LinkDisableControl ist die Klasse für das IPS-Modul 'Link Disable Control'.
@@ -28,7 +29,6 @@ require_once(__DIR__ . "/../libs/LinkHideOrLinkDisableBaseControl.php");  // Hid
  */
 class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
 {
-
     /**
      * Steuert das Deaktivieren
      *
@@ -38,10 +38,11 @@ class LinkDisableControl extends LinkHideOrLinkDisableBaseControl
      */
     protected function SetHiddenOrDisabled(int $ObjectID, bool $Value)
     {
-        if (IPS_GetObject($ObjectID)["ObjectIsDisabled"] <> $Value) {
+        if (IPS_GetObject($ObjectID)['ObjectIsDisabled'] <> $Value) {
             IPS_SetDisabled($ObjectID, $Value);
         }
     }
+
 }
 
 /** @} */

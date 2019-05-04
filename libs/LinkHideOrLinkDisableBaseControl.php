@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * @addtogroup dynamicvisucontrol
  * @{
@@ -12,7 +13,7 @@
  * @version       2.0
  *
  */
-require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Klasse
+require_once(__DIR__ . '/AllBaseControl.php');  // HideDeaktivLinkBaseControl Klasse
 
 /**
  * LinkHideOrLinkDisableBaseControl ist die Basisklasse für alle Link-Module der Library
@@ -28,7 +29,6 @@ require_once(__DIR__ . "/AllBaseControl.php");  // HideDeaktivLinkBaseControl Kl
  */
 abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseControl
 {
-
     /**
      * Interne Funktion des SDK.
      *
@@ -37,7 +37,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     public function Create()
     {
         parent::Create();
-        $this->RegisterPropertyInteger("LinkSource", 0);
+        $this->RegisterPropertyInteger('LinkSource', 0);
     }
 
     /**
@@ -57,24 +57,25 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     private function RefreshLinks()
     {
-        if ($this->ReadPropertyInteger("LinkSource") == 0) {
+        if ($this->ReadPropertyInteger('LinkSource') == 0) {
             foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {
-                if (IPS_GetObject($Child)['ObjectType'] == otLink) {
+                if (IPS_GetObject($Child)['ObjectType'] == OBJECTTYPE_LINK) {
                     IPS_DeleteLink($Child);
                 }
             }
             return;
         }
-        $present = array();
+        $this->RegisterReference($this->ReadPropertyInteger('LinkSource'));
+        $present = [];
         foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {
-            if (IPS_GetObject($Child)['ObjectType'] == otLink) {
+            if (IPS_GetObject($Child)['ObjectType'] == OBJECTTYPE_LINK) {
                 $present[] = IPS_GetLink($Child)['TargetID'];
             }
         }
 
-        $create = array_diff(IPS_GetChildrenIDs($this->ReadPropertyInteger("LinkSource")), $present);
+        $create = array_diff(IPS_GetChildrenIDs($this->ReadPropertyInteger('LinkSource')), $present);
         foreach ($create as $Target) {
-            if (IPS_GetObject($Target)["ObjectIsHidden"]) {
+            if (IPS_GetObject($Target)['ObjectIsHidden']) {
                 continue;
             }
             $Link = IPS_CreateLink();
@@ -92,16 +93,16 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     protected function HideOrDeaktiv(bool $hidden)
     {
-        if ($this->ReadPropertyBoolean("Invert")) {
+        if ($this->ReadPropertyBoolean('Invert')) {
             $hidden = !$hidden;
         }
 
         // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
-        $Source = $this->ReadPropertyInteger("Source");
+        $Source = $this->ReadPropertyInteger('Source');
         $Childs = IPS_GetChildrenIDs($this->InstanceID);
 
         foreach ($Childs as $Child) {
-            if (IPS_GetObject($Child)['ObjectType'] <> otLink) {
+            if (IPS_GetObject($Child)['ObjectType'] <> OBJECTTYPE_LINK) {
                 continue;
             }
             if (IPS_GetLink($Child)['TargetID'] == $Source) {
