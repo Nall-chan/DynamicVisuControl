@@ -13,17 +13,18 @@ declare(strict_types=1);
  * @version       3.0
  *
  */
-require_once(__DIR__ . '/AllBaseControl.php');  // HideDeaktivLinkBaseControl Klasse
+require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
 
 /**
  * LinkHideOrLinkDisableBaseControl ist die Basisklasse für alle Link-Module der Library
- * Erweitert HideDeaktivLinkBaseControl
+ * Erweitert HideDeaktivLinkBaseControl.
  *
- * @package       DynamicVisuControl
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2019 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ *
  * @version       3.0
+ *
  * @example <b>Ohne</b>
  * @abstract
  */
@@ -31,8 +32,6 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
 {
     /**
      * Interne Funktion des SDK.
-     *
-     * @access public
      */
     public function Create()
     {
@@ -42,8 +41,6 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
 
     /**
      * Interne Funktion des SDK.
-     *
-     * @access public
      */
     public function ApplyChanges()
     {
@@ -53,7 +50,6 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
 
     /**
      * Ergänzt fehlenden Links unterhalb der eigenen Instanz zu allen Childs der Quelle.
-     * @access private
      */
     private function RefreshLinks()
     {
@@ -86,9 +82,8 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     }
 
     /**
-     * Steuert das verstecken oder deaktivieren
+     * Steuert das verstecken oder deaktivieren.
      *
-     * @access protected
      * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
     protected function HideOrDeaktiv(bool $hidden)
@@ -102,7 +97,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
         $Childs = IPS_GetChildrenIDs($this->InstanceID);
 
         foreach ($Childs as $Child) {
-            if (IPS_GetObject($Child)['ObjectType'] <> OBJECTTYPE_LINK) {
+            if (IPS_GetObject($Child)['ObjectType'] != OBJECTTYPE_LINK) {
                 continue;
             }
             if (IPS_GetLink($Child)['TargetID'] == $Source) {
@@ -113,12 +108,12 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     }
 
     /**
-     * Steuert das verstecken oder deaktivieren
+     * Steuert das verstecken oder deaktivieren.
      *
      * @abstract
-     * @access protected
-     * @param int $ObjectID Das Objekt welches manipuliert werden soll.
-     * @param bool $Value True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
+     *
+     * @param int  $ObjectID Das Objekt welches manipuliert werden soll.
+     * @param bool $Value    True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
     abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
 }

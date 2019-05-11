@@ -13,27 +13,27 @@ declare(strict_types=1);
  * @version       3.0
  *
  */
-require_once(__DIR__ . '/AllBaseControl.php');  // HideDeaktivLinkBaseControl Klasse
+require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
 
 /**
  * HideOrDisableBaseControl ist die Basisklasse für alle nicht Link-Module der Library
- * Erweitert HideDeaktivLinkBaseControl
+ * Erweitert HideDeaktivLinkBaseControl.
  *
- * @package       DynamicVisuControl
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2019 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
+ *
  * @version       3.0
+ *
  * @example <b>Ohne</b>
  * @abstract
+ *
  * @property int $TargetID Die IPS-ID des Ziel-Objektes welches versteckt bzw. deaktiviert werden soll.
  */
 abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 {
     /**
      * Interne Funktion des SDK.
-     *
-     * @access public
      */
     public function Create()
     {
@@ -46,8 +46,6 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 
     /**
      * Interne Funktion des SDK.
-     *
-     * @access public
      */
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
@@ -63,13 +61,11 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
 
     /**
      * Interne Funktion des SDK.
-     *
-     * @access public
      */
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-        if (IPS_GetKernelRunlevel() <> KR_READY) {
+        if (IPS_GetKernelRunlevel() != KR_READY) {
             return;
         }
         $this->RegisterTarget($this->ReadPropertyInteger('Target'));
@@ -85,12 +81,12 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     }
 
     /**
-     * Registriert die neue TriggerVariable
+     * Registriert die neue TriggerVariable.
      */
     protected function RegisterTarget(int $NewTargetID)
     {
         $OldTargetID = $this->TargetID;
-        if ($NewTargetID <> $OldTargetID) {
+        if ($NewTargetID != $OldTargetID) {
             if ($OldTargetID > 0) {
                 $this->UnregisterMessage($OldTargetID, OM_UNREGISTER);
                 $this->UnregisterReference($OldTargetID);
@@ -106,9 +102,8 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     }
 
     /**
-     * Steuert das verstecken oder deaktivieren
+     * Steuert das verstecken oder deaktivieren.
      *
-     * @access protected
      * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
     protected function HideOrDeaktiv(bool $hidden)
@@ -152,14 +147,14 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     }
 
     /**
-     * Steuert das verstecken oder deaktivieren
+     * Steuert das verstecken oder deaktivieren.
      *
      * @abstract
-     * @access protected
-     * @param int $ObjectID Das Objekt welches manipuliert werden soll.
-     * @param bool $Value True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
+     *
+     * @param int  $ObjectID Das Objekt welches manipuliert werden soll.
+     * @param bool $Value    True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
     abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
 }
 
-/** @} */
+/* @} */
