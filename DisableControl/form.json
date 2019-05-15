@@ -8,7 +8,7 @@
                 },
                 {
                     "type": "Label",
-                    "label": "Condition for bool variable"
+                    "caption": "Condition for bool variable"
                 },
                 {
                     "name": "ConditionBoolean",
@@ -16,18 +16,18 @@
                     "caption": "Conditionvalue:",
                     "options": [
                         {
-                            "label": "true/on",
+                            "caption": "true/on",
                             "value": 1
                         },
                         {
-                            "label": "false/off",
+                            "caption": "false/off",
                             "value": 0
                         }
                     ]
                 },
                 {
                     "type": "Label",
-                    "label": "Conditionvalue without bool variable"
+                    "caption": "Conditionvalue without bool variable"
                 },
                 {
                     "name": "ConditionValue",
@@ -41,7 +41,7 @@
                 },
                 {
                     "type": "Label",
-                    "label": "Target to disable:"
+                    "caption": "Target to disable:"
                 },
                 {
                     "name": "Target",
@@ -54,11 +54,11 @@
                     "caption": "Disable:",
                     "options": [
                         {
-                            "label": "Target",
+                            "caption": "Target",
                             "value": 0
                         },
                         {
-                            "label": "Childs of target",
+                            "caption": "Childs of target",
                             "value": 1
                         }
                     ]

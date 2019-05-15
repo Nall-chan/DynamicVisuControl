@@ -10,7 +10,8 @@
             "Invert": "Invertieren",
             "Target to hide:": "Ziel welches versteckt werden soll:",
             "Target:": "Ziel:",
-            "Hide": "Verstecken",
+            "Target": "Ziel",
+            "Hide:": "Verstecken:",
             "Childs of target": "Unterobjekte vom Ziel",
             "Target invalid.": "Ziel ungültig",
             "Type of target is invalid.": "Typ vom Ziel nicht gültig."
