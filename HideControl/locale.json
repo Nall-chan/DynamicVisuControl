@@ -3,16 +3,16 @@
         "de": {
             "Variable:": "Variable:",
             "Condition for bool variable": "Vergleichswert bei Boolean-Variablen",
-            "Conditionvalue:": "Vergleichswert:",
+            "Condition value:": "Vergleichswert:",
             "true/on": "True/Wahr/Ein",
             "false/off": "False/Unwahr/Aus",
-            "Conditionvalue without bool variable": "Vergleichswert ohne Boolean-Variablen",
+            "Condition value without bool variable": "Vergleichswert ohne Boolean-Variablen",
             "Invert": "Invertieren",
             "Target to hide:": "Ziel welches versteckt werden soll:",
             "Target:": "Ziel:",
             "Target": "Ziel",
             "Hide:": "Verstecken:",
-            "Childs of target": "Unterobjekte vom Ziel",
+            "Children of target": "Unterobjekte vom Ziel",
             "Target invalid.": "Ziel ungültig",
             "Type of target is invalid.": "Typ vom Ziel nicht gültig."
         }

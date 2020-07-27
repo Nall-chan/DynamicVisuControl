@@ -3,12 +3,12 @@
     "name": "HideControl",
     "type": 3,
     "vendor": "Nall-chan",
-    "aliases": 
-    [
+    "aliases": [
         "Hide Control"
     ],
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
-    "prefix": "HIDE"
+    "prefix": "HIDE",
+    "url": "https://github.com/Nall-chan/DynamicVisuControl"
 }

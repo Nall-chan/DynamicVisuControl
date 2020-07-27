@@ -1,67 +1,66 @@
 {
-    "elements":
-            [
+    "elements": [
+        {
+            "name": "Source",
+            "type": "SelectVariable",
+            "caption": "Variable:"
+        },
+        {
+            "type": "Label",
+            "caption": "Condition for bool variable"
+        },
+        {
+            "name": "ConditionBoolean",
+            "type": "Select",
+            "caption": "Condition value:",
+            "options": [
                 {
-                    "name": "Source",
-                    "type": "SelectVariable",
-                    "caption": "Variable:"
+                    "caption": "true/on",
+                    "value": 1
                 },
                 {
-                    "type": "Label",
-                    "caption": "Condition for bool variable"
-                },
-                {
-                    "name": "ConditionBoolean",
-                    "type": "Select",
-                    "caption": "Conditionvalue:",
-                    "options": [
-                        {
-                            "caption": "true/on",
-                            "value": 1
-                        },
-                        {
-                            "caption": "false/off",
-                            "value": 0
-                        }
-                    ]
-                },
-                {
-                    "type": "Label",
-                    "caption": "Conditionvalue without bool variable"
-                },
-                {
-                    "name": "ConditionValue",
-                    "type": "ValidationTextBox",
-                    "caption": "Conditionvalue:"
-                },
-                {
-                    "name": "Invert",
-                    "type": "CheckBox",
-                    "caption": "Invert"
-                },
-                {
-                    "type": "Label",
-                    "caption": "Target to disable:"
-                },
-                {
-                    "name": "Target",
-                    "type": "SelectObject",
-                    "caption": "Target:"
-                },
-                {
-                    "name": "TargetType",
-                    "type": "Select",
-                    "caption": "Disable:",
-                    "options": [
-                        {
-                            "caption": "Target",
-                            "value": 0
-                        },
-                        {
-                            "caption": "Childs of target",
-                            "value": 1
-                        }
-                    ]
+                    "caption": "false/off",
+                    "value": 0
                 }
             ]
+        },
+        {
+            "type": "Label",
+            "caption": "Condition value without bool variable"
+        },
+        {
+            "name": "ConditionValue",
+            "type": "ValidationTextBox",
+            "caption": "Condition value:"
+        },
+        {
+            "name": "Invert",
+            "type": "CheckBox",
+            "caption": "Invert"
+        },
+        {
+            "type": "Label",
+            "caption": "Target to disable:"
+        },
+        {
+            "name": "Target",
+            "type": "SelectObject",
+            "caption": "Target:"
+        },
+        {
+            "name": "TargetType",
+            "type": "Select",
+            "caption": "Disable:",
+            "options": [
+                {
+                    "caption": "Target",
+                    "value": 0
+                },
+                {
+                    "caption": "Children of target",
+                    "value": 1
+                }
+            ]
+        }
+    ]
 }

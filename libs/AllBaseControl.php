@@ -11,9 +11,9 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2019 Michael Tröger
+ * @copyright     2020 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.0
+ * @version       3.01
  *
  */
 
@@ -22,10 +22,10 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * Erweitert IPSModule.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2019 Michael Tröger
+ * @copyright     2020 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.0
+ * @version       3.01
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -34,8 +34,8 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
-    use \dynamicvisucontrol\DebugHelper,
-        \dynamicvisucontrol\BufferHelper;
+    use \dynamicvisucontrol\DebugHelper;
+    use \dynamicvisucontrol\BufferHelper;
 
     /**
      * Interne Funktion des SDK.
@@ -169,7 +169,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     }
 
     /**
-     * Deregistriert eine Überwachung einer Variable.
+     * Desregistriert eine Überwachung einer Variable.
      *
      * @param int $VarId IPS-ID der Variable.
      */

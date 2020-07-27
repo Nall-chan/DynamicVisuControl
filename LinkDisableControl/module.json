@@ -3,12 +3,12 @@
     "name": "LinkDisableControl",
     "type": 3,
     "vendor": "Nall-chan",
-    "aliases": 
-    [
+    "aliases": [
         "Link Disable Control"
     ],
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
-    "prefix": "LINKDISABLE"
+    "prefix": "LINKDISABLE",
+    "url": "https://github.com/Nall-chan/DynamicVisuControl"
 }

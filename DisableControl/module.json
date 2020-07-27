@@ -3,12 +3,12 @@
     "name": "DisableControl",
     "type": 3,
     "vendor": "Nall-chan",
-    "aliases": 
-    [
+    "aliases": [
         "Disable Control"
     ],
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
-    "prefix": "DISABLE"
+    "prefix": "DISABLE",
+    "url": "https://github.com/Nall-chan/DynamicVisuControl"
 }

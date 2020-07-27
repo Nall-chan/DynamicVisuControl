@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2019 Michael Tröger
+ * @copyright     2020 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.0
+ * @version       3.01
  *
  */
 require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
@@ -20,10 +20,10 @@ require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Kla
  * Erweitert HideDeaktivLinkBaseControl.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2019 Michael Tröger
+ * @copyright     2020 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.0
+ * @version       3.01
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -128,8 +128,8 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
             $this->SetHiddenOrDisabled($Target, $hidden);
         } elseif ($this->ReadPropertyInteger('TargetType') == 1) {
             $Source = $this->ReadPropertyInteger('Source');
-            $Childs = IPS_GetChildrenIDs($Target);
-            foreach ($Childs as $Child) {
+            $Children = IPS_GetChildrenIDs($Target);
+            foreach ($Children as $Child) {
                 if ($Child == $Source) {
                     continue;
                 }

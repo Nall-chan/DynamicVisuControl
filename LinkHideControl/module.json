@@ -3,12 +3,12 @@
     "name": "LinkHideControl",
     "type": 3,
     "vendor": "Nall-chan",
-    "aliases": 
-    [
+    "aliases": [
         "Link Hide Control"
     ],
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
-    "prefix": "LINKHIDE"
+    "prefix": "LINKHIDE",
+    "url": "https://github.com/Nall-chan/DynamicVisuControl"
 }

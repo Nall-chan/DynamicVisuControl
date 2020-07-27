@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2019 Michael Tröger
+ * @copyright     2020 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.0
+ * @version       3.01
  *
  */
 require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
@@ -20,10 +20,10 @@ require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Kla
  * Erweitert HideDeaktivLinkBaseControl.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2019 Michael Tröger
+ * @copyright     2020 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.0
+ * @version       3.01
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -49,7 +49,43 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     }
 
     /**
-     * Ergänzt fehlenden Links unterhalb der eigenen Instanz zu allen Childs der Quelle.
+     * Steuert das verstecken oder deaktivieren.
+     *
+     * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
+     */
+    protected function HideOrDeaktiv(bool $hidden)
+    {
+        if ($this->ReadPropertyBoolean('Invert')) {
+            $hidden = !$hidden;
+        }
+
+        // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
+        $Source = $this->ReadPropertyInteger('Source');
+        $Children = IPS_GetChildrenIDs($this->InstanceID);
+
+        foreach ($Children as $Child) {
+            if (IPS_GetObject($Child)['ObjectType'] != OBJECTTYPE_LINK) {
+                continue;
+            }
+            if (IPS_GetLink($Child)['TargetID'] == $Source) {
+                continue;
+            }
+            $this->SetHiddenOrDisabled($Child, $hidden);
+        }
+    }
+
+    /**
+     * Steuert das verstecken oder deaktivieren.
+     *
+     * @abstract
+     *
+     * @param int  $ObjectID Das Objekt welches manipuliert werden soll.
+     * @param bool $Value    True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
+     */
+    abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
+
+    /**
+     * Ergänzt fehlenden Links unterhalb der eigenen Instanz zu allen Children der Quelle.
      */
     private function RefreshLinks()
     {
@@ -80,40 +116,4 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
             IPS_SetLinkTargetID($Link, $Target);
         }
     }
-
-    /**
-     * Steuert das verstecken oder deaktivieren.
-     *
-     * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
-     */
-    protected function HideOrDeaktiv(bool $hidden)
-    {
-        if ($this->ReadPropertyBoolean('Invert')) {
-            $hidden = !$hidden;
-        }
-
-        // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
-        $Source = $this->ReadPropertyInteger('Source');
-        $Childs = IPS_GetChildrenIDs($this->InstanceID);
-
-        foreach ($Childs as $Child) {
-            if (IPS_GetObject($Child)['ObjectType'] != OBJECTTYPE_LINK) {
-                continue;
-            }
-            if (IPS_GetLink($Child)['TargetID'] == $Source) {
-                continue;
-            }
-            $this->SetHiddenOrDisabled($Child, $hidden);
-        }
-    }
-
-    /**
-     * Steuert das verstecken oder deaktivieren.
-     *
-     * @abstract
-     *
-     * @param int  $ObjectID Das Objekt welches manipuliert werden soll.
-     * @param bool $Value    True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
-     */
-    abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
 }
