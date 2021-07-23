@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)  
 [![Version](https://img.shields.io/badge/Symcon%20Version-5.1%20%3E-green.svg)](https://www.symcon.de/forum/threads/30857-IP-Symcon-5-1-%28Stable%29-Changelog)
 [![Check Style](https://github.com/Nall-chan/DynamicVisuControl/workflows/Check%20Style/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions) [![Run Tests](https://github.com/Nall-chan/DynamicVisuControl/workflows/Run%20Tests/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions)  
+[![Spenden](https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_SM.gif)](#7-spenden)  
 
 # Symcon-Modul: DynamicVisuControl <!-- omit in toc -->
 Enthält verschiedene Module für die dynamische Visualisierung von Objekten im WebFront von IP-Symcon.
@@ -18,11 +19,12 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
   - [LinkHideControl](#linkhidecontrol)
   - [LinkDisableControl](#linkdisablecontrol)
 - [2. Voraussetzungen](#2-voraussetzungen)
-- [3. Installation](#3-installation)
+  - [3. Software-Installation](#3-software-installation)
 - [4. PHP-Befehlsreferenz](#4-php-befehlsreferenz)
 - [5. Parameter / Modul-Infos](#5-parameter--modul-infos)
-- [6. Anhang](#6-anhang)
-- [7. Lizenz](#7-lizenz)
+- [6. Changelog](#6-changelog)
+- [7. Spenden](#7-spenden)
+- [8. Lizenz](#8-lizenz)
 
 ## 1. Funktionsumfang
 
@@ -125,20 +127,15 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 
 ## 2. Voraussetzungen
 
- - IPS 4.3 oder neuer
+ - IPS 5.1 oder neuer
  
-## 3. Installation
+### 3. Software-Installation
 
-**IPS 4.3:**  
-   Bei privater Nutzung: Über das 'Module-Control' in IPS folgende URL hinzufügen.  
-        `git://github.com/Nall-chan/DynamicVisuControl.git`  
-
-   **Bei kommerzieller Nutzung (z.B. als Errichter oder Integrator) wenden Sie sich bitte an den Autor.**  
-
+* Über den Module Store das 'Dynamic Visu Control'-Modul installieren.
+ 
 ## 4. PHP-Befehlsreferenz
 
 keine  Funktionen verfügbar.
-
 
 ## 5. Parameter / Modul-Infos
 
@@ -193,14 +190,7 @@ keine  Funktionen verfügbar.
 |      Invert      | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
 |    LinkSource    | integer |      0       |         IPS-Objekt-ID welches verlinkt werden soll         |
 
-## 6. Anhang
-
-
-Die Library ist für die nicht kommerzielle Nutzung kostenlos, Schenkungen als Unterstützung für den Autor werden hier akzeptiert:  
-
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G2SLW2MEMQZH2" target="_blank"><img src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_LG.gif" border="0" /></a>
-
-**Changelog:** 
+## 6. Changelog
  
 Version 3.00:  
 - Release für IPS 5.1 und den Module-Store  
@@ -218,6 +208,12 @@ Version 2.0:
 Version 1.0:  
 - Release für IPS 4.0  
 
-## 7. Lizenz  
+## 7. Spenden
+
+Die Library ist für die nicht kommerzielle Nutzung kostenlos, Schenkungen als Unterstützung für den Autor werden hier akzeptiert:  
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G2SLW2MEMQZH2" target="_blank"><img src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_LG.gif" border="0" /></a>
+
+## 8. Lizenz  
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)  
