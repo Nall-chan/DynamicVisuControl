@@ -1,6 +1,6 @@
 [![SDK](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Version](https://img.shields.io/badge/Modul%20Version-3.01-blue.svg)]()
-[![Version](https://img.shields.io/badge/Symcon%20Version-5.1%20%3E-green.svg)](https://www.symcon.de/forum/threads/30857-IP-Symcon-5-1-%28Stable%29-Changelog)  
+[![Version](https://img.shields.io/badge/Modul%20Version-3.10-blue.svg)]()
+[![Version](https://img.shields.io/badge/Symcon%20Version-6.1%20%3E-green.svg)](https://www.symcon.de/de/service/dokumentation/installation/migrationen/v60-v61-q1-2022/)  
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Check Style](https://github.com/Nall-chan/DynamicVisuControl/workflows/Check%20Style/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions)
 [![Run Tests](https://github.com/Nall-chan/DynamicVisuControl/workflows/Run%20Tests/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions)  
@@ -35,7 +35,7 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
  
 ## 2. Voraussetzungen
 
-* IP-Symcon ab Version 5.1
+* IP-Symcon ab Version 6.1
 
 ## 3. Software-Installation
   
@@ -159,46 +159,50 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 
 |   Eigenschaft    |   Typ   | Standardwert |                             Funktion                              |
 | :--------------: | :-----: | :----------: | :---------------------------------------------------------------: |
-|      Source      | integer |      0       |             Quell-Variable welche zum Vergleich dient             |
+|      Source      | integer |      1       |             Quell-Variable welche zum Vergleich dient             |
 | ConditionBoolean | integer |      1       |       1 wenn bei Wert true von Source versteckt werden soll       |
 |  ConditionValue  | string  |              |         Vergleichswert für Wert von Source zum verstecken         |
 |      Invert      | boolean |    false     |    True wenn der Vergleich noch einmal invertiert werden soll     |
-|      Target      | integer |      0       |   IPS-Objekt-ID des Ziel-Objektes welche versteckt werden soll    |
+|      Target      | integer |      1       |   IPS-Objekt-ID des Ziel-Objektes welche versteckt werden soll    |
 |    TargetType    | integer |      0       | 0 Wenn Target, 1 wenn dessen Unterobjekte versteckt werden sollen |
 
 **Eigenschaften von DisableControl:**  
 
 |   Eigenschaft    |   Typ   | Standardwert |                              Funktion                               |
 | :--------------: | :-----: | :----------: | :-----------------------------------------------------------------: |
-|      Source      | integer |      0       |              Quell-Variable welche zum Vergleich dient              |
+|      Source      | integer |      1       |              Quell-Variable welche zum Vergleich dient              |
 | ConditionBoolean | integer |      1       |       1 wenn bei Wert true von Source deaktiviert werden soll       |
 |  ConditionValue  | string  |              |         Vergleichswert für Wert von Source zum deaktivieren         |
 |      Invert      | boolean |    false     |     True wenn der Vergleich noch einmal invertiert werden soll      |
-|      Target      | integer |      0       |   IPS-Objekt-ID des Ziel-Objektes welche deaktiviert werden soll    |
+|      Target      | integer |      1       |   IPS-Objekt-ID des Ziel-Objektes welche deaktiviert werden soll    |
 |    TargetType    | integer |      0       | 0 Wenn Target, 1 wenn dessen Unterobjekte deaktiviert werden sollen |
 
 **Eigenschaften von LinkHideControl:**  
 
 |   Eigenschaft    |   Typ   | Standardwert |                          Funktion                          |
 | :--------------: | :-----: | :----------: | :--------------------------------------------------------: |
-|      Source      | integer |      0       |         Quell-Variable welche zum Vergleich dient          |
+|      Source      | integer |      1       |         Quell-Variable welche zum Vergleich dient          |
 | ConditionBoolean | integer |      1       |   1 wenn bei Wert true von Source versteckt werden soll    |
 |  ConditionValue  | string  |              |     Vergleichswert für Wert von Source zum verstecken      |
 |      Invert      | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
-|    LinkSource    | integer |      0       |         IPS-Objekt-ID welches verlinkt werden soll         |
+|    LinkSource    | integer |      1       |         IPS-Objekt-ID welches verlinkt werden soll         |
 
 **Eigenschaften von LinkDisableControl:**  
 
 |   Eigenschaft    |   Typ   | Standardwert |                          Funktion                          |
 | :--------------: | :-----: | :----------: | :--------------------------------------------------------: |
-|      Source      | integer |      0       |         Quell-Variable welche zum Vergleich dient          |
+|      Source      | integer |      1       |         Quell-Variable welche zum Vergleich dient          |
 | ConditionBoolean | integer |      1       |  1 wenn bei Wert true von Source deaktiviert werden soll   |
 |  ConditionValue  | string  |              |    Vergleichswert für Wert von Source zum deaktivieren     |
 |      Invert      | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
-|    LinkSource    | integer |      0       |         IPS-Objekt-ID welches verlinkt werden soll         |
+|    LinkSource    | integer |      1       |         IPS-Objekt-ID welches verlinkt werden soll         |
 
 ### 3. Changelog
- 
+
+Version 3.10:  
+- Release für IPS 6.1  
+- Dynamisches Konfigurationsformular welche die nicht benötigten Vergleichswerte ausblendet  
+   
 Version 3.00:  
 - Release für IPS 5.1 und den Module-Store  
 - IPS_SetProperty und IPS_Applychanges auf sich selbst entfernt   

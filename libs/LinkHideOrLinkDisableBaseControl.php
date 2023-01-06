@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2020 Michael Tröger
+ * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.01
+ * @version       3.10
  *
  */
 require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
@@ -20,10 +20,10 @@ require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Kla
  * Erweitert HideDeaktivLinkBaseControl.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2020 Michael Tröger
+ * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.01
+ * @version       3.10
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -36,7 +36,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     public function Create()
     {
         parent::Create();
-        $this->RegisterPropertyInteger('LinkSource', 0);
+        $this->RegisterPropertyInteger('LinkSource', 1);
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     private function RefreshLinks()
     {
-        if ($this->ReadPropertyInteger('LinkSource') == 0) {
+        if ($this->ReadPropertyInteger('LinkSource') < 10000) {
             foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {
                 if (IPS_GetObject($Child)['ObjectType'] == OBJECTTYPE_LINK) {
                     IPS_DeleteLink($Child);

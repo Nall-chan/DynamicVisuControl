@@ -3,16 +3,18 @@
         {
             "name": "Source",
             "type": "SelectVariable",
-            "caption": "Variable:"
+            "caption": "Variable",
+            "onChange": "IPS_RequestAction($id,'SelectVariable',$Source);"
         },
         {
+            "name": "LabelBool",
             "type": "Label",
             "caption": "Condition for bool variable"
         },
         {
             "name": "ConditionBoolean",
             "type": "Select",
-            "caption": "Condition value:",
+            "caption": "Condition value",
             "options": [
                 {
                     "caption": "true/on",
@@ -25,13 +27,14 @@
             ]
         },
         {
+            "name": "LabelValue",
             "type": "Label",
             "caption": "Condition value without bool variable"
         },
         {
             "name": "ConditionValue",
             "type": "ValidationTextBox",
-            "caption": "Condition value:"
+            "caption": "Condition value"
         },
         {
             "name": "Invert",
@@ -40,17 +43,17 @@
         },
         {
             "type": "Label",
-            "caption": "Target to hide:"
+            "caption": "Target to hide"
         },
         {
             "name": "Target",
             "type": "SelectObject",
-            "caption": "Target:"
+            "caption": "Target"
         },
         {
             "name": "TargetType",
             "type": "Select",
-            "caption": "Hide:",
+            "caption": "Hide",
             "options": [
                 {
                     "caption": "Target",
