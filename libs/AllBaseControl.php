@@ -107,14 +107,8 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     {
         $OldSourceID = $this->SourceID;
         if ($NewSourceID != $OldSourceID) {
-            if ($OldSourceID > 0) {
-                $this->UnregisterVariableWatch($OldSourceID);
-            }
-            if ($NewSourceID > 0) {
-                if (IPS_VariableExists($NewSourceID)) {
-                    $this->RegisterVariableWatch($NewSourceID);
-                }
-            }
+            $this->UnregisterVariableWatch($OldSourceID);
+            $this->RegisterVariableWatch($NewSourceID);
             $this->SourceID = $NewSourceID;
         }
     }
@@ -162,10 +156,12 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         if ($VarId == 0) {
             return;
         }
-        $this->SendDebug('RegisterVariableWatch', $VarId, 0);
-        $this->RegisterMessage($VarId, VM_DELETE);
-        $this->RegisterMessage($VarId, VM_UPDATE);
-        $this->RegisterReference($VarId);
+        if (IPS_VariableExists($VarId)) {
+            $this->SendDebug('RegisterVariableWatch', $VarId, 0);
+            $this->RegisterMessage($VarId, VM_DELETE);
+            $this->RegisterMessage($VarId, VM_UPDATE);
+            $this->RegisterReference($VarId);
+        }
     }
 
     /**
@@ -178,7 +174,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         if ($VarId == 0) {
             return;
         }
-
         $this->SendDebug('UnregisterVariableWatch', $VarId, 0);
         $this->UnregisterMessage($VarId, VM_DELETE);
         $this->UnregisterMessage($VarId, VM_UPDATE);
