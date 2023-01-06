@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2020 Michael Tröger
+ * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.01
+ * @version       3.10
  *
  */
 require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
@@ -20,10 +20,10 @@ require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Kla
  * Erweitert HideDeaktivLinkBaseControl.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2020 Michael Tröger
+ * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.01
+ * @version       3.10
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -39,9 +39,9 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     {
         parent::Create();
 
-        $this->RegisterPropertyInteger('Target', 0);
+        $this->RegisterPropertyInteger('Target', 1);
         $this->RegisterPropertyInteger('TargetType', 1);
-        $this->TargetID = 0;
+        $this->TargetID = 1;
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
         switch ($Message) {
             case OM_UNREGISTER:
                 if ($SenderID == $this->TargetID) {
-                    $this->RegisterTarget(0);
+                    $this->RegisterTarget(1);
                 }
                 break;
         }
@@ -87,11 +87,11 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     {
         $OldTargetID = $this->TargetID;
         if ($NewTargetID != $OldTargetID) {
-            if ($OldTargetID > 0) {
+            if ($OldTargetID > 9999) {
                 $this->UnregisterMessage($OldTargetID, OM_UNREGISTER);
                 $this->UnregisterReference($OldTargetID);
             }
-            if ($NewTargetID > 0) {
+            if ($NewTargetID > 9999) {
                 if (IPS_ObjectExists($NewTargetID)) {
                     $this->RegisterMessage($NewTargetID, OM_UNREGISTER);
                     $this->RegisterReference($OldTargetID);
@@ -112,7 +112,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
             $hidden = !$hidden;
         }
 
-        if ($this->ReadPropertyInteger('Target') == 0) {
+        if ($this->ReadPropertyInteger('Target') < 10000) {
             trigger_error($this->Translate('Target invalid.'), E_USER_NOTICE);
             return;
         }

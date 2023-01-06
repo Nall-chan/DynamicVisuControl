@@ -1,12 +1,12 @@
 {
     "id": "{0361B997-8700-4F9C-8569-827BD44E29F2}",
-    "author": "Michael Tr\u00f6ger",
+    "author": "Michael Tröger",
     "name": "DynamicVisuControl Library",
     "url": "https://github.com/Nall-chan/DynamicVisuControl",
     "compatibility": {
-        "version": "5.1"
+        "version": "6.1"
     },
-    "version": "3.01",
-    "build": 151,
+    "version": "3.10",
+    "build": 155,
     "date": 1595853622
 }

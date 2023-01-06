@@ -11,9 +11,9 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2020 Michael Tröger
+ * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.01
+ * @version       3.10
  *
  */
 
@@ -22,10 +22,10 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * Erweitert IPSModule.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2020 Michael Tröger
+ * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.01
+ * @version       3.10
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -37,6 +37,8 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     use \dynamicvisucontrol\DebugHelper;
     use \dynamicvisucontrol\BufferHelper;
 
+    protected static $Form;
+
     /**
      * Interne Funktion des SDK.
      */
@@ -44,11 +46,11 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     {
         parent::Create();
 
-        $this->RegisterPropertyInteger('Source', 0);
+        $this->RegisterPropertyInteger('Source', 1);
         $this->RegisterPropertyInteger('ConditionBoolean', 1);
         $this->RegisterPropertyString('ConditionValue', '');
         $this->RegisterPropertyBoolean('Invert', false);
-        $this->SourceID = 0;
+        $this->SourceID = 1;
     }
 
     /**
@@ -84,18 +86,52 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
             return;
         }
         $this->RegisterTrigger($this->ReadPropertyInteger('Source'));
-        if ($this->SourceID > 0) {
+        if ($this->SourceID > 1) {
             $this->Update(GetValue($this->SourceID));
         }
     }
+    /**
+     * Interne Funktion des SDK.
+     */
+    public function RequestAction($Ident, $Value)
+    {
+        switch ($Ident) {
+                case 'SelectVariable':
+                    $this->UpdateForm((int) $Value);
+                return true;
+            }
+        return true;
+    }
+    /**
+     * Interne Funktion des SDK.
+     */
+    public function GetConfigurationForm()
+    {
+        $Form = json_decode(file_get_contents(static::$Form), true);
+        if ($this->SourceID > 1) {
+            if (IPS_VariableExists($this->SourceID)) {
+                $Source = IPS_GetVariable($this->SourceID);
+                if ($Source['VariableType'] == VARIABLETYPE_BOOLEAN) {
+                    $Form['elements'][3]['visible'] = false;
+                    $Form['elements'][4]['visible'] = false;
+                } else {
+                    $Form['elements'][1]['visible'] = false;
+                    $Form['elements'][2]['visible'] = false;
+                }
+            }
+        }
+        $this->SendDebug('FORM', json_encode($Form), 0);
+        $this->SendDebug('FORM', json_last_error_msg(), 0);
 
+        return json_encode($Form);
+    }
     /**
      * Wird aufgerufen wenn der IPS Betriebsbereit wird.
      */
     protected function KernelReady()
     {
         $this->RegisterTrigger($this->ReadPropertyInteger('Source'));
-        if ($this->SourceID > 0) {
+        if ($this->SourceID > 1) {
             $this->Update(GetValue($this->SourceID));
         }
     }
@@ -107,18 +143,11 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     {
         $OldSourceID = $this->SourceID;
         if ($NewSourceID != $OldSourceID) {
-            if ($OldSourceID > 0) {
-                $this->UnregisterVariableWatch($OldSourceID);
-            }
-            if ($NewSourceID > 0) {
-                if (IPS_VariableExists($NewSourceID)) {
-                    $this->RegisterVariableWatch($NewSourceID);
-                }
-            }
+            $this->UnregisterVariableWatch($OldSourceID);
+            $this->RegisterVariableWatch($NewSourceID);
             $this->SourceID = $NewSourceID;
         }
     }
-
     /**
      * Steuert das verstecken oder deaktivieren.
      *
@@ -159,13 +188,15 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
      */
     protected function RegisterVariableWatch(int $VarId)
     {
-        if ($VarId == 0) {
+        if ($VarId < 9999) {
             return;
         }
-        $this->SendDebug('RegisterVariableWatch', $VarId, 0);
-        $this->RegisterMessage($VarId, VM_DELETE);
-        $this->RegisterMessage($VarId, VM_UPDATE);
-        $this->RegisterReference($VarId);
+        if (IPS_VariableExists($VarId)) {
+            $this->SendDebug('RegisterVariableWatch', $VarId, 0);
+            $this->RegisterMessage($VarId, VM_DELETE);
+            $this->RegisterMessage($VarId, VM_UPDATE);
+            $this->RegisterReference($VarId);
+        }
     }
 
     /**
@@ -175,14 +206,36 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
      */
     protected function UnregisterVariableWatch(int $VarId)
     {
-        if ($VarId == 0) {
+        if ($VarId < 9999) {
             return;
         }
-
         $this->SendDebug('UnregisterVariableWatch', $VarId, 0);
         $this->UnregisterMessage($VarId, VM_DELETE);
         $this->UnregisterMessage($VarId, VM_UPDATE);
         $this->UnregisterReference($VarId);
+    }
+    private function UpdateForm(int $Variable)
+    {
+        if (!IPS_VariableExists($Variable)) {
+            $this->UpdateFormField('LabelBool', 'visible', true);
+            $this->UpdateFormField('ConditionBoolean', 'visible', true);
+            $this->UpdateFormField('LabelValue', 'visible', true);
+            $this->UpdateFormField('ConditionValue', 'visible', true);
+            return;
+        }
+
+        $Source = IPS_GetVariable($Variable);
+        if ($Source['VariableType'] == VARIABLETYPE_BOOLEAN) {
+            $this->UpdateFormField('LabelBool', 'visible', true);
+            $this->UpdateFormField('ConditionBoolean', 'visible', true);
+            $this->UpdateFormField('LabelValue', 'visible', false);
+            $this->UpdateFormField('ConditionValue', 'visible', false);
+        } else {
+            $this->UpdateFormField('LabelBool', 'visible', false);
+            $this->UpdateFormField('ConditionBoolean', 'visible', false);
+            $this->UpdateFormField('LabelValue', 'visible', true);
+            $this->UpdateFormField('ConditionValue', 'visible', true);
+        }
     }
 }
 
