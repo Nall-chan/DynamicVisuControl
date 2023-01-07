@@ -31,6 +31,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @abstract
  *
  * @property int $SourceID Die IPS-ID der Variable welche als Event verwendet wird.
+ * @property bool $UpdateConfig
  */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
@@ -45,10 +46,18 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     public function Create()
     {
         parent::Create();
-
+        $this->UpdateConfig = false;
+        // Alte Propertys registrieren,
+        // wenn sie für das Überführen in das Property 'Value' benötigt werden.
+        if (IPS_GetKernelRunlevel() == KR_READY) {
+            $OldConfig = json_decode(IPS_GetConfiguration($this->InstanceID), true);
+            if (!array_key_exists('Value', $OldConfig)) {
+                $this->RegisterPropertyInteger('ConditionBoolean', 1);
+                $this->RegisterPropertyString('ConditionValue', '');
+                $this->UpdateConfig = true;
+            }
+        }
         $this->RegisterPropertyInteger('Source', 1);
-        //$this->RegisterPropertyInteger('ConditionBoolean', 1);
-        //$this->RegisterPropertyString('ConditionValue', '');
         $this->RegisterPropertyString('Value', '[]');
         $this->RegisterPropertyBoolean('Invert', false);
         $this->SourceID = 1;
@@ -214,6 +223,9 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
 
     private function UpdateConfig()
     {
+        if (!$this->UpdateConfig){
+            return false;
+        }
         $OldConfig = json_decode(IPS_GetConfiguration($this->InstanceID), true);
         $this->SendDebug('Old', IPS_GetConfiguration($this->InstanceID), 0);
         $Value = json_decode($this->ReadPropertyString('Value'), true);
@@ -238,10 +250,9 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
                 }
                 IPS_SetProperty($this->InstanceID, 'Value', json_encode($Value));
                 IPS_ApplyChanges($this->InstanceID);
-                return true;
             }
         }
-        return false;
+        return true;
     }
 
     private function UpdateForm(int $Variable)
