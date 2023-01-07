@@ -83,7 +83,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     {
         parent::ApplyChanges();
         $this->RegisterMessage(0, IPS_KERNELSTARTED);
-        if (IPS_GetKernelRunlevel() != KR_READY) {
+        if (IPS_GetKernelRunlevel() == KR_READY) {
             if ($this->UpdateConfig()) {
                 return;
             }
