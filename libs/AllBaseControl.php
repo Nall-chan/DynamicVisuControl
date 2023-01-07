@@ -248,7 +248,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
                         $Value = $OldConfig['ConditionValue'];
                         break;
                 }
-                
+
         IPS_SetProperty($this->InstanceID, 'Value', json_encode($Value));
         IPS_ApplyChanges($this->InstanceID);
         return true;

@@ -108,18 +108,19 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
      */
     protected function HideOrDeaktiv(bool $hidden)
     {
-        if ($this->ReadPropertyBoolean('Invert')) {
-            $hidden = !$hidden;
-        }
-
         $Target = $this->ReadPropertyInteger('Target');
 
         if ($Target < 10000) {
             return;
         }
+
         if (!IPS_ObjectExists($Target)) {
             trigger_error($this->Translate('Target invalid.'), E_USER_NOTICE);
             return;
+        }
+
+        if ($this->ReadPropertyBoolean('Invert')) {
+            $hidden = !$hidden;
         }
 
         if ($this->ReadPropertyInteger('TargetType') == 0) {

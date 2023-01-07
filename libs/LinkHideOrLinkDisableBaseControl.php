@@ -55,13 +55,9 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     protected function HideOrDeaktiv(bool $hidden)
     {
-        if ($this->ReadPropertyBoolean('Invert')) {
-            $hidden = !$hidden;
-        }
-
         // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
         $Source = $this->ReadPropertyInteger('Source');
-        
+
         if ($Source < 10000) {
             return;
         }
@@ -69,6 +65,11 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
             trigger_error($this->Translate('Target of links is invalid.'), E_USER_NOTICE);
             return;
         }
+
+        if ($this->ReadPropertyBoolean('Invert')) {
+            $hidden = !$hidden;
+        }
+
         $Children = IPS_GetChildrenIDs($this->InstanceID);
 
         foreach ($Children as $Child) {
