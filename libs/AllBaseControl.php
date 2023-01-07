@@ -160,6 +160,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
      */
     protected function Update($Value)
     {
+        return;
         $Source = IPS_GetVariable($this->SourceID);
         switch ($Source['VariableType']) {
             case VARIABLETYPE_BOOLEAN:
@@ -214,6 +215,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     private function UpdateConfig()
     {
         $OldConfig = json_decode(IPS_GetConfiguration($this->InstanceID), true);
+        $this->SendDebug('Old', IPS_GetConfiguration($this->InstanceID), 0);
         $Value = json_decode($this->ReadPropertyString('Value'), true);
         if (is_array($Value) && (array_key_exists('ConditionBoolean', $OldConfig))) {
             $VarId = $this->ReadPropertyInteger('Source');
@@ -222,7 +224,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
 
                 switch ($Source['VariableType']) {
                     case VARIABLETYPE_BOOLEAN:
-                        $Value = $OldConfig['ConditionBoolean'];
+                        $Value = (bool)$OldConfig['ConditionBoolean'];
                         break;
                     case VARIABLETYPE_INTEGER:
                         $Value = (int) $OldConfig['ConditionValue'];
