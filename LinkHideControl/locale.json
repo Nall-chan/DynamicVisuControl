@@ -9,7 +9,8 @@
             "Condition value without bool variable": "Vergleichswert ohne Boolean-Variablen",
             "Invert": "Invertieren",
             "Target of links": "Ziel welche verlinkt werden soll",
-            "Target": "Ziel"
+            "Target": "Ziel",
+            "Target of links is invalid.": "Ziel der Links ist ungültig"
         }
     }
 }

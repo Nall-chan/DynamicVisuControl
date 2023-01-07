@@ -61,6 +61,14 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
 
         // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
         $Source = $this->ReadPropertyInteger('Source');
+        
+        if ($Source < 10000) {
+            return;
+        }
+        if (!IPS_ObjectExists($Source)) {
+            trigger_error($this->Translate('Target of links is invalid.'), E_USER_NOTICE);
+            return;
+        }
         $Children = IPS_GetChildrenIDs($this->InstanceID);
 
         foreach ($Children as $Child) {

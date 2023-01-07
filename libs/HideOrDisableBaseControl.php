@@ -112,13 +112,11 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
             $hidden = !$hidden;
         }
 
-        if ($this->ReadPropertyInteger('Target') < 10000) {
-            trigger_error($this->Translate('Target invalid.'), E_USER_NOTICE);
-            return;
-        }
-
         $Target = $this->ReadPropertyInteger('Target');
 
+        if ($Target < 10000) {
+            return;
+        }
         if (!IPS_ObjectExists($Target)) {
             trigger_error($this->Translate('Target invalid.'), E_USER_NOTICE);
             return;
