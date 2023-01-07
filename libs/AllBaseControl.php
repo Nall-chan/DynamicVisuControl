@@ -47,8 +47,9 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         parent::Create();
 
         $this->RegisterPropertyInteger('Source', 1);
-        $this->RegisterPropertyInteger('ConditionBoolean', 1);
-        $this->RegisterPropertyString('ConditionValue', '');
+        //$this->RegisterPropertyInteger('ConditionBoolean', 1);
+        //$this->RegisterPropertyString('ConditionValue', '');
+        $this->RegisterPropertyString('Value', '[]');
         $this->RegisterPropertyBoolean('Invert', false);
         $this->SourceID = 1;
     }
@@ -83,7 +84,9 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         parent::ApplyChanges();
         $this->RegisterMessage(0, IPS_KERNELSTARTED);
         if (IPS_GetKernelRunlevel() != KR_READY) {
-            return;
+            if ($this->UpdateConfig()) {
+                return;
+            }
         }
         $this->RegisterTrigger($this->ReadPropertyInteger('Source'));
         if ($this->SourceID > 1) {
@@ -110,14 +113,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         $Form = json_decode(file_get_contents(static::$Form), true);
         if ($this->SourceID > 1) {
             if (IPS_VariableExists($this->SourceID)) {
-                $Source = IPS_GetVariable($this->SourceID);
-                if ($Source['VariableType'] == VARIABLETYPE_BOOLEAN) {
-                    $Form['elements'][3]['visible'] = false;
-                    $Form['elements'][4]['visible'] = false;
-                } else {
-                    $Form['elements'][1]['visible'] = false;
-                    $Form['elements'][2]['visible'] = false;
-                }
+                $Form['elements'][1]['variableID'] = $this->SourceID;
             }
         }
         $this->SendDebug('FORM', json_encode($Form), 0);
@@ -214,28 +210,45 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         $this->UnregisterMessage($VarId, VM_UPDATE);
         $this->UnregisterReference($VarId);
     }
+
+    private function UpdateConfig()
+    {
+        $OldConfig = json_decode(IPS_GetConfiguration($this->InstanceID), true);
+        $Value = json_decode($this->ReadPropertyString('Value'), true);
+        if (is_array($Value) && (array_key_exists('ConditionBoolean', $OldConfig))) {
+            $VarId = $this->ReadPropertyInteger('Source');
+            if (IPS_VariableExists($VarId)) {
+                $Source = IPS_GetVariable($VarId);
+
+                switch ($Source['VariableType']) {
+                    case VARIABLETYPE_BOOLEAN:
+                        $Value = $OldConfig['ConditionBoolean'];
+                        break;
+                    case VARIABLETYPE_INTEGER:
+                        $Value = (int) $OldConfig['ConditionValue'];
+                        break;
+                    case VARIABLETYPE_FLOAT:
+                        $Value = (float) $OldConfig['ConditionValue'];
+                        break;
+                    case VARIABLETYPE_STRING:
+                        $Value = $OldConfig['ConditionValue'];
+                        break;
+                }
+                IPS_SetProperty($this->InstanceID, 'Value', json_encode($Value));
+                IPS_ApplyChanges($this->InstanceID);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private function UpdateForm(int $Variable)
     {
         if (!IPS_VariableExists($Variable)) {
-            $this->UpdateFormField('LabelBool', 'visible', true);
-            $this->UpdateFormField('ConditionBoolean', 'visible', true);
-            $this->UpdateFormField('LabelValue', 'visible', true);
-            $this->UpdateFormField('ConditionValue', 'visible', true);
-            return;
+            $Variable = 0;
         }
 
-        $Source = IPS_GetVariable($Variable);
-        if ($Source['VariableType'] == VARIABLETYPE_BOOLEAN) {
-            $this->UpdateFormField('LabelBool', 'visible', true);
-            $this->UpdateFormField('ConditionBoolean', 'visible', true);
-            $this->UpdateFormField('LabelValue', 'visible', false);
-            $this->UpdateFormField('ConditionValue', 'visible', false);
-        } else {
-            $this->UpdateFormField('LabelBool', 'visible', false);
-            $this->UpdateFormField('ConditionBoolean', 'visible', false);
-            $this->UpdateFormField('LabelValue', 'visible', true);
-            $this->UpdateFormField('ConditionValue', 'visible', true);
-        }
+        $this->UpdateFormField('Value', 'variableID', $Variable);
     }
 }
 

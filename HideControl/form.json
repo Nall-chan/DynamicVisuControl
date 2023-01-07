@@ -7,34 +7,10 @@
             "onChange": "IPS_RequestAction($id,'SelectVariable',$Source);"
         },
         {
-            "name": "LabelBool",
-            "type": "Label",
-            "caption": "Condition for bool variable"
-        },
-        {
-            "name": "ConditionBoolean",
-            "type": "Select",
+            "name": "Value",
+            "type": "SelectValue",
             "caption": "Condition value",
-            "options": [
-                {
-                    "caption": "true/on",
-                    "value": 1
-                },
-                {
-                    "caption": "false/off",
-                    "value": 0
-                }
-            ]
-        },
-        {
-            "name": "LabelValue",
-            "type": "Label",
-            "caption": "Condition value without bool variable"
-        },
-        {
-            "name": "ConditionValue",
-            "type": "ValidationTextBox",
-            "caption": "Condition value"
+            "variableID": 1
         },
         {
             "name": "Invert",

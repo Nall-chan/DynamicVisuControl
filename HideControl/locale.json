@@ -2,11 +2,7 @@
     "translations": {
         "de": {
             "Variable": "Variable",
-            "Condition for bool variable": "Vergleichswert bei Boolean-Variablen",
             "Condition value": "Vergleichswert",
-            "true/on": "True/Wahr/Ein",
-            "false/off": "False/Unwahr/Aus",
-            "Condition value without bool variable": "Vergleichswert ohne Boolean-Variablen",
             "Invert": "Invertieren",
             "Target to hide": "Ziel welches versteckt werden soll",
             "Target": "Ziel",
