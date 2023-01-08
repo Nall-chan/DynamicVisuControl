@@ -1,5 +1,5 @@
 [![SDK](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Version](https://img.shields.io/badge/Modul%20Version-3.10-blue.svg)]()
+[![Version](https://img.shields.io/badge/Modul%20Version-3.50:-blue.svg)]()
 [![Version](https://img.shields.io/badge/Symcon%20Version-6.1%20%3E-green.svg)](https://www.symcon.de/de/service/dokumentation/installation/migrationen/v60-v61-q1-2022/)  
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Check Style](https://github.com/Nall-chan/DynamicVisuControl/workflows/Check%20Style/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions)
@@ -157,47 +157,47 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 
 **Eigenschaften von HideControl:**  
 
-|   Eigenschaft    |   Typ   | Standardwert |                             Funktion                              |
-| :--------------: | :-----: | :----------: | :---------------------------------------------------------------: |
-|      Source      | integer |      1       |             Quell-Variable welche zum Vergleich dient             |
-| ConditionBoolean | integer |      1       |       1 wenn bei Wert true von Source versteckt werden soll       |
-|  ConditionValue  | string  |              |         Vergleichswert für Wert von Source zum verstecken         |
-|      Invert      | boolean |    false     |    True wenn der Vergleich noch einmal invertiert werden soll     |
-|      Target      | integer |      1       |   IPS-Objekt-ID des Ziel-Objektes welche versteckt werden soll    |
-|    TargetType    | integer |      0       | 0 Wenn Target, 1 wenn dessen Unterobjekte versteckt werden sollen |
+| Eigenschaft |   Typ   | Standardwert |                             Funktion                              |
+| :---------: | :-----: | :----------: | :---------------------------------------------------------------: |
+|   Source    | integer |      1       |             Quell-Variable welche zum Vergleich dient             |
+|    Value    | string  |      []      |               Vergleichswert für Wert, JSON kodiert               |
+|   Invert    | boolean |    false     |    True wenn der Vergleich noch einmal invertiert werden soll     |
+|   Target    | integer |      1       |   IPS-Objekt-ID des Ziel-Objektes welche versteckt werden soll    |
+| TargetType  | integer |      0       | 0 Wenn Target, 1 wenn dessen Unterobjekte versteckt werden sollen |
 
 **Eigenschaften von DisableControl:**  
 
-|   Eigenschaft    |   Typ   | Standardwert |                              Funktion                               |
-| :--------------: | :-----: | :----------: | :-----------------------------------------------------------------: |
-|      Source      | integer |      1       |              Quell-Variable welche zum Vergleich dient              |
-| ConditionBoolean | integer |      1       |       1 wenn bei Wert true von Source deaktiviert werden soll       |
-|  ConditionValue  | string  |              |         Vergleichswert für Wert von Source zum deaktivieren         |
-|      Invert      | boolean |    false     |     True wenn der Vergleich noch einmal invertiert werden soll      |
-|      Target      | integer |      1       |   IPS-Objekt-ID des Ziel-Objektes welche deaktiviert werden soll    |
-|    TargetType    | integer |      0       | 0 Wenn Target, 1 wenn dessen Unterobjekte deaktiviert werden sollen |
+| Eigenschaft |   Typ   | Standardwert |                              Funktion                               |
+| :---------: | :-----: | :----------: | :-----------------------------------------------------------------: |
+|   Source    | integer |      1       |              Quell-Variable welche zum Vergleich dient              |
+|    Value    | string  |      []      |                Vergleichswert für Wert, JSON kodiert                |
+|   Invert    | boolean |    false     |     True wenn der Vergleich noch einmal invertiert werden soll      |
+|   Target    | integer |      1       |   IPS-Objekt-ID des Ziel-Objektes welche deaktiviert werden soll    |
+| TargetType  | integer |      0       | 0 Wenn Target, 1 wenn dessen Unterobjekte deaktiviert werden sollen |
 
 **Eigenschaften von LinkHideControl:**  
 
-|   Eigenschaft    |   Typ   | Standardwert |                          Funktion                          |
-| :--------------: | :-----: | :----------: | :--------------------------------------------------------: |
-|      Source      | integer |      1       |         Quell-Variable welche zum Vergleich dient          |
-| ConditionBoolean | integer |      1       |   1 wenn bei Wert true von Source versteckt werden soll    |
-|  ConditionValue  | string  |              |     Vergleichswert für Wert von Source zum verstecken      |
-|      Invert      | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
-|    LinkSource    | integer |      1       |         IPS-Objekt-ID welches verlinkt werden soll         |
+| Eigenschaft |   Typ   | Standardwert |                          Funktion                          |
+| :---------: | :-----: | :----------: | :--------------------------------------------------------: |
+|   Source    | integer |      1       |         Quell-Variable welche zum Vergleich dient          |
+|    Value    | string  |      []      |           Vergleichswert für Wert, JSON kodiert            |
+|   Invert    | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
+| LinkSource  | integer |      1       |         IPS-Objekt-ID welches verlinkt werden soll         |
 
 **Eigenschaften von LinkDisableControl:**  
 
-|   Eigenschaft    |   Typ   | Standardwert |                          Funktion                          |
-| :--------------: | :-----: | :----------: | :--------------------------------------------------------: |
-|      Source      | integer |      1       |         Quell-Variable welche zum Vergleich dient          |
-| ConditionBoolean | integer |      1       |  1 wenn bei Wert true von Source deaktiviert werden soll   |
-|  ConditionValue  | string  |              |    Vergleichswert für Wert von Source zum deaktivieren     |
-|      Invert      | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
-|    LinkSource    | integer |      1       |         IPS-Objekt-ID welches verlinkt werden soll         |
+| Eigenschaft |   Typ   | Standardwert |                          Funktion                          |
+| :---------: | :-----: | :----------: | :--------------------------------------------------------: |
+|   Source    | integer |      1       |         Quell-Variable welche zum Vergleich dient          |
+|    Value    | string  |      []      |           Vergleichswert für Wert, JSON kodiert            |
+|   Invert    | boolean |    false     | True wenn der Vergleich noch einmal invertiert werden soll |
+| LinkSource  | integer |      1       |         IPS-Objekt-ID welches verlinkt werden soll         |
 
 ### 3. Changelog
+
+Version 3.50:  
+- Release für IPS 6.3  
+- Dynamisches Konfigurationsformular welches Vergleichswerte auf Basis der Quelle anbietet  
 
 Version 3.10:  
 - Release für IPS 6.1  

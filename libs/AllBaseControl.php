@@ -164,22 +164,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
      */
     protected function Update($Value)
     {
-        return;
-        $Source = IPS_GetVariable($this->SourceID);
-        switch ($Source['VariableType']) {
-            case VARIABLETYPE_BOOLEAN:
-                $this->HideOrDeaktiv($this->ReadPropertyInteger('ConditionBoolean') == (bool) $Value);
-                break;
-            case VARIABLETYPE_INTEGER:
-                $this->HideOrDeaktiv((int) $this->ReadPropertyString('ConditionValue') == (int) $Value);
-                break;
-            case VARIABLETYPE_FLOAT:
-                $this->HideOrDeaktiv((float) $this->ReadPropertyString('ConditionValue') == (float) $Value);
-                break;
-            case VARIABLETYPE_STRING:
-                $this->HideOrDeaktiv((string) $this->ReadPropertyString('ConditionValue') == (string) $Value);
-                break;
-        }
+        $this->HideOrDeaktiv(json_decode($this->ReadPropertyInteger('Value'), true) == $Value);
     }
 
     /**
