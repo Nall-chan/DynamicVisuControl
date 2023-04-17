@@ -13,7 +13,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.10
+ * @version       3.50:
  *
  */
 
@@ -25,7 +25,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @copyright     2023 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.10
+ * @version       3.50:
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -164,7 +164,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
      */
     protected function Update($Value)
     {
-        $this->HideOrDeaktiv(json_decode($this->ReadPropertyInteger('Value'), true) == $Value);
+        $this->HideOrDeaktiv(json_decode($this->ReadPropertyString('Value'), true) == $Value);
     }
 
     /**
