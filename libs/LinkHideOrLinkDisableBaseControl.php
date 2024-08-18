@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2023 Michael Tröger
+ * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.50:
+ * @version       3.55:
  *
  */
 require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
@@ -20,10 +20,10 @@ require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Kla
  * Erweitert HideDeaktivLinkBaseControl.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2023 Michael Tröger
+ * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.50:
+ * @version       3.55:
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -33,7 +33,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     /**
      * Interne Funktion des SDK.
      */
-    public function Create()
+    public function Create(): void
     {
         parent::Create();
         $this->RegisterPropertyInteger('LinkSource', 1);
@@ -42,7 +42,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
     /**
      * Interne Funktion des SDK.
      */
-    public function ApplyChanges()
+    public function ApplyChanges(): void
     {
         $this->RefreshLinks();
         parent::ApplyChanges();
@@ -53,7 +53,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      *
      * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
-    protected function HideOrDeaktiv(bool $hidden)
+    protected function HideOrDeaktiv(bool $hidden): void
     {
         // Links erzeugen / prüfen wird nur bei ApplyChanges gemacht
         $Source = $this->ReadPropertyInteger('Source');
@@ -91,12 +91,12 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      * @param int  $ObjectID Das Objekt welches manipuliert werden soll.
      * @param bool $Value    True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
-    abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
+    abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value): void;
 
     /**
      * Ergänzt fehlenden Links unterhalb der eigenen Instanz zu allen Children der Quelle.
      */
-    private function RefreshLinks()
+    private function RefreshLinks(): void
     {
         if ($this->ReadPropertyInteger('LinkSource') < 10000) {
             foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {

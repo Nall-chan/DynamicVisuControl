@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @package       DynamicVisuControl
  * @file          AllBaseControl.php
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2023 Michael Tröger
+ * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.50:
+ * @version       3.55:
  *
  */
 require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Klasse
@@ -20,10 +20,10 @@ require_once __DIR__ . '/AllBaseControl.php';  // HideDeaktivLinkBaseControl Kla
  * Erweitert HideDeaktivLinkBaseControl.
  *
  * @author        Michael Tröger <micha@nall-chan.net>
- * @copyright     2023 Michael Tröger
+ * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.50:
+ * @version       3.55:
  *
  * @example <b>Ohne</b>
  * @abstract
@@ -35,7 +35,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     /**
      * Interne Funktion des SDK.
      */
-    public function Create()
+    public function Create(): void
     {
         parent::Create();
 
@@ -47,7 +47,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     /**
      * Interne Funktion des SDK.
      */
-    public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    public function MessageSink(int $TimeStamp, int $SenderID, int $Message, array $Data): void
     {
         parent::MessageSink($TimeStamp, $SenderID, $Message, $Data);
         switch ($Message) {
@@ -62,7 +62,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     /**
      * Interne Funktion des SDK.
      */
-    public function ApplyChanges()
+    public function ApplyChanges(): void
     {
         parent::ApplyChanges();
         if (IPS_GetKernelRunlevel() != KR_READY) {
@@ -74,7 +74,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     /**
      * Wird aufgerufen wenn der IPS Betriebsbereit wird.
      */
-    protected function KernelReady()
+    protected function KernelReady(): void
     {
         parent::KernelReady();
         $this->RegisterTarget($this->ReadPropertyInteger('Target'));
@@ -83,7 +83,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
     /**
      * Registriert die neue TriggerVariable.
      */
-    protected function RegisterTarget(int $NewTargetID)
+    protected function RegisterTarget(int $NewTargetID): void
     {
         $OldTargetID = $this->TargetID;
         if ($NewTargetID != $OldTargetID) {
@@ -106,7 +106,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
      *
      * @param bool $hidden True wenn Ziel(e) versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
-    protected function HideOrDeaktiv(bool $hidden)
+    protected function HideOrDeaktiv(bool $hidden): void
     {
         $Target = $this->ReadPropertyInteger('Target');
 
@@ -153,7 +153,7 @@ abstract class HideOrDisableBaseControl extends HideDeaktivLinkBaseControl
      * @param int  $ObjectID Das Objekt welches manipuliert werden soll.
      * @param bool $Value    True wenn $ObjectID versteckt oder deaktiviert werden, false zum anzeigen bzw. aktivieren.
      */
-    abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value);
+    abstract protected function SetHiddenOrDisabled(int $ObjectID, bool $Value): void;
 }
 
 /* @} */
