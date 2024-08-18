@@ -31,6 +31,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @abstract
  *
  * @property int $SourceID Die IPS-ID der Variable welche als Event verwendet wird.
+ * @method bool SendDebug(string $Message, mixed $Data, int $Format)
  */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
@@ -84,12 +85,14 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     public function ApplyChanges()
     {
         parent::ApplyChanges();
+        $this->SendDebug('Source',$this->ReadPropertyInteger('Source'),0);
+        $this->SendDebug('Value',var_export($this->ReadPropertyString('Value'),true),0);
         $this->RegisterMessage(0, IPS_KERNELSTARTED);
-        if (IPS_GetKernelRunlevel() == KR_READY) {
+        /*if (IPS_GetKernelRunlevel() == KR_READY) {
             if ($this->UpdateConfig()) {
                 return;
             }
-        }
+        }*/
         $this->RegisterTrigger($this->ReadPropertyInteger('Source'));
         if ($this->SourceID > 1) {
             $this->Update(GetValue($this->SourceID));
@@ -117,7 +120,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
         if ($SourceID > 1) {
             if (IPS_VariableExists($SourceID)) {
                 $Form['elements'][1]['variableID'] = $SourceID;
-                $Form['elements'][1]['value'] = $this->ReadPropertyString('Value');
             }
         }
         $this->SendDebug('FORM', json_encode($Form), 0);
@@ -203,21 +205,22 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
 
     private function UpdateConfig()
     {
+        $this->SendDebug('UpdateConfig', '1', 0);
         $Value = json_decode($this->ReadPropertyString('Value'), true);
-        if (!is_array($Value)) {
+        if (!is_array($Value)) { // new Property is [] !
             return false;
         }
-
+        $this->SendDebug('UpdateConfig', '2', 0);
         $OldConfig = json_decode(IPS_GetConfiguration($this->InstanceID), true);
         if (!array_key_exists('ConditionBoolean', $OldConfig)) {
             return false;
         }
-
+        $this->SendDebug('UpdateConfig', '3', 0);
         $VarId = $this->ReadPropertyInteger('Source');
         if (!IPS_VariableExists($VarId)) {
             return false;
         }
-
+        $this->SendDebug('UpdateConfig', '4', 0);
         $Source = IPS_GetVariable($VarId);
         switch ($Source['VariableType']) {
                     case VARIABLETYPE_BOOLEAN:
@@ -233,7 +236,7 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
                         $Value = $OldConfig['ConditionValue'];
                         break;
                 }
-
+                $this->SendDebug('UpdateConfig', 'BANG', 0);
         IPS_SetProperty($this->InstanceID, 'Value', json_encode($Value));
         IPS_ApplyChanges($this->InstanceID);
         return true;
