@@ -228,45 +228,6 @@ abstract class HideDeaktivLinkBaseControl extends IPSModuleStrict
         $this->UnregisterReference($VarId);
     }
 
-    private function UpdateConfig(): bool
-    {
-        $this->SendDebug('UpdateConfig', '1', 0);
-        $Value = json_decode($this->ReadPropertyString('Value'), true);
-        if (!is_array($Value)) { // new Property is [] !
-            return false;
-        }
-        $this->SendDebug('UpdateConfig', '2', 0);
-        $OldConfig = json_decode(IPS_GetConfiguration($this->InstanceID), true);
-        if (!array_key_exists('ConditionBoolean', $OldConfig)) {
-            return false;
-        }
-        $this->SendDebug('UpdateConfig', '3', 0);
-        $VarId = $this->ReadPropertyInteger('Source');
-        if (!IPS_VariableExists($VarId)) {
-            return false;
-        }
-        $this->SendDebug('UpdateConfig', '4', 0);
-        $Source = IPS_GetVariable($VarId);
-        switch ($Source['VariableType']) {
-            case VARIABLETYPE_BOOLEAN:
-                $Value = (bool) $OldConfig['ConditionBoolean'];
-                break;
-            case VARIABLETYPE_INTEGER:
-                $Value = (int) $OldConfig['ConditionValue'];
-                break;
-            case VARIABLETYPE_FLOAT:
-                $Value = (float) $OldConfig['ConditionValue'];
-                break;
-            case VARIABLETYPE_STRING:
-                $Value = $OldConfig['ConditionValue'];
-                break;
-        }
-        $this->SendDebug('UpdateConfig', 'BANG', 0);
-        IPS_SetProperty($this->InstanceID, 'Value', json_encode($Value));
-        IPS_ApplyChanges($this->InstanceID);
-        return true;
-    }
-
     private function UpdateForm(int $Variable): void
     {
         if (!IPS_VariableExists($Variable)) {
