@@ -31,6 +31,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @abstract
  *
  * @property int $SourceID Die IPS-ID der Variable welche als Event verwendet wird.
+ * @method bool SendDebug(string $Message, mixed $Data, int $Format)
  */
 abstract class HideDeaktivLinkBaseControl extends IPSModule
 {
@@ -96,10 +97,10 @@ abstract class HideDeaktivLinkBaseControl extends IPSModule
     public function RequestAction($Ident, $Value)
     {
         switch ($Ident) {
-                case 'SelectVariable':
-                    $this->UpdateForm((int) $Value);
+            case 'SelectVariable':
+                $this->UpdateForm((int) $Value);
                 return true;
-            }
+        }
         return true;
     }
     /**
