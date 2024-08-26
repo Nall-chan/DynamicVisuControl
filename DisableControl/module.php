@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.55:
+ * @version       3.70
  *
  */
 
@@ -24,7 +24,7 @@ require_once __DIR__ . '/../libs/HideOrDisableBaseControl.php';  // HideDeaktivL
  * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.55:
+ * @version       3.70
  *
  * @example <b>Ohne</b>
  */

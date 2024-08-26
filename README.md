@@ -1,5 +1,5 @@
 [![SDK](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Version](https://img.shields.io/badge/Modul%20Version-3.55:-blue.svg)]()
+[![Version](https://img.shields.io/badge/Modul%20Version-3.70-blue.svg)]()
 [![Version](https://img.shields.io/badge/Symcon%20Version-6.1%20%3E-green.svg)](https://www.symcon.de/de/service/dokumentation/installation/migrationen/v60-v61-q1-2022/)  
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Check Style](https://github.com/Nall-chan/DynamicVisuControl/workflows/Check%20Style/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions)
@@ -195,28 +195,32 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 
 ### 3. Changelog
 
-Version 3.50:  
+**Version 3.70:**  
+ - Release für Symcon 7.2  
+ - Dynamisches Konfigurationsformular bietet Vergleichswerte mit Profil an
+ 
+**Version 3.50:**  
 - Release für IPS 6.3  
 - Dynamisches Konfigurationsformular welches Vergleichswerte auf Basis der Quelle anbietet  
 
-Version 3.10:  
+**Version 3.10:**  
 - Release für IPS 6.1  
 - Dynamisches Konfigurationsformular welche die nicht benötigten Vergleichswerte ausblendet  
    
-Version 3.00:  
+**Version 3.00:**  
 - Release für IPS 5.1 und den Module-Store  
 - IPS_SetProperty und IPS_Applychanges auf sich selbst entfernt   
 
-Version 2.02:
+**Version 2.02:**  
 - Fixes für IPS 5.0
 
-Version 2.01:
+**Version 2.01:**
 - Release für IPS 4.3  
 
-Version 2.0:  
+**Version 2.0:**  
 - Release für IPS 4.1  
 
-Version 1.0:  
+**Version 1.0:**  
 - Release für IPS 4.0  
 
 ### 4. Spenden

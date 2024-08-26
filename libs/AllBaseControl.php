@@ -13,7 +13,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @author        Michael Tröger <micha@nall-chan.net>
  * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
- * @version       3.55:
+ * @version       3.70
  *
  */
 
@@ -25,7 +25,7 @@ eval('declare(strict_types=1);namespace dynamicvisucontrol {?>' . file_get_conte
  * @copyright     2024 Michael Tröger
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  *
- * @version       3.55:
+ * @version       3.70
  *
  * @example <b>Ohne</b>
  * @abstract
