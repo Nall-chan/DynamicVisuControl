@@ -98,7 +98,7 @@ abstract class LinkHideOrLinkDisableBaseControl extends HideDeaktivLinkBaseContr
      */
     private function RefreshLinks(): void
     {
-        if ($this->ReadPropertyInteger('LinkSource') < 10000) {
+        if (($this->ReadPropertyInteger('LinkSource') < 10000) || !IPS_ObjectExists($this->ReadPropertyInteger('LinkSource'))) {
             foreach (IPS_GetChildrenIDs($this->InstanceID) as $Child) {
                 if (IPS_GetObject($Child)['ObjectType'] == OBJECTTYPE_LINK) {
                     IPS_DeleteLink($Child);

@@ -9,7 +9,8 @@
             "Disable": "Deaktivieren",
             "Children of target": "Unterobjekte vom Ziel",
             "Target invalid.": "Ziel ungültig",
-            "Type of target is invalid.": "Typ vom Ziel nicht gültig."
+            "Type of target is invalid.": "Typ vom Ziel nicht gültig.",
+            "This module is free for non-commercial use,\r\nDonations in support of the author are accepted here:": "Dieses Modul ist für die nicht kommerzielle Nutzung kostenlos,\r\nSchenkungen als Unterstützung für den Autor werden hier akzeptiert:"
         }
     }
 }

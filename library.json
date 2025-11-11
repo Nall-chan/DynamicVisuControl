@@ -4,9 +4,9 @@
     "name": "DynamicVisuControl Library",
     "url": "https://github.com/Nall-chan/DynamicVisuControl",
     "compatibility": {
-        "version": "7.2"
+        "version": "8.1"
     },
     "version": "3.70",
-    "build": 200,
-    "date": 1724648403
+    "build": 370,
+    "date": 1757001712
 }
