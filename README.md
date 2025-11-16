@@ -5,12 +5,12 @@
 [![Check Style](https://github.com/Nall-chan/DynamicVisuControl/workflows/Check%20Style/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions) [![Run Tests](https://github.com/Nall-chan/DynamicVisuControl/workflows/Run%20Tests/badge.svg)](https://github.com/Nall-chan/DynamicVisuControl/actions)  
 [![PayPal.Me](https://img.shields.io/badge/PayPal-Me-lightblue.svg)](#4-spenden)
 [![Wunschliste](https://img.shields.io/badge/Wunschliste-Amazon-ff69fb.svg)](#4-spenden)  
-# Dynamic Visu Control <!-- omit in toc -->
+
+# Dynamic Visu Control <!-- omit in toc -->  
+
 Enthält verschiedene Module für die dynamische Visualisierung von Objekten im WebFront von IP-Symcon.
 
-## Dokumentation <!-- omit in toc -->
-
-**Inhaltsverzeichnis**
+## Inhaltsverzeichnis <!-- omit in toc -->  
 
 - [1. Vorbemerkungen](#1-vorbemerkungen)
 - [2. Voraussetzungen](#2-voraussetzungen)
@@ -27,29 +27,31 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
   - [4. Spenden](#4-spenden)
 - [6. Lizenz](#6-lizenz)
 
-## 1. Vorbemerkungen
+## 1. Vorbemerkungen  
+
  **Die Visualisierung im WebFront von IPS sollte nicht direkt mit den Original-Hardware-Instanzen erfolgen.  
  Es empfiehlt sich eine eigene Struktur aus Kategorien, Instanzen des Typ Dummy-Modul und Links zu erzeugen.  
  Da die Eigenschaften 'Sichtbarkeit' und 'Bedienbarkeit' von Links nicht von ihrem Ziel vererbt werden, ist es nicht sinnvoll direkt Hardware-Instanzen zu verstecken oder zu deaktivieren.**  
- 
+
 ## 2. Voraussetzungen
 
-* IP-Symcon ab Version 8.1
+- Symcon ab Version 8.1
 
 ## 3. Software-Installation
   
   Über den 'Module-Store' in IPS das Modul 'Dynamic Visu Control' hinzufügen.  
    **Bei kommerzieller Nutzung (z.B. als Errichter oder Integrator) wenden Sie sich bitte an den Autor.**  
-![Module-Store](imgs/install.png) 
+![Module-Store](imgs/install.png)  
 
 ## 4. Enthaltene Module
 
-### HideControl
+### HideControl  
+
  Versteckt/visualisiert ein vorhandenes Objekt oder dessen direkten Unterobjekte in Abhängigkeit einer Variable.  
  Dazu wird die Variable <span style="color:red">__(1)__</span> mit den jeweiligen Wert aus <span style="color:red">__(2)__</span> oder <span style="color:red">__(5)__</span> verglichen.  
  Ist der Vergleich erfolgreich (= wahr) so wird das Ziel-Objekt <span style="color:red">__(3)__</span> versteckt.  
  Optional kann der Parameter Invertieren genutzt werden um den Vergleich umzudrehen.  
- 
+
 ![Doku/HideControl_1.png](imgs//HideControl_1.png)  
 ![Doku/HideControl_2.png](imgs//HideControl_2.png)  
 
@@ -70,12 +72,13 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
   
 ---  
   
-### DisableControl
+### DisableControl  
+
  Deaktiviert/aktiviert ein vorhandenes Objekt oder dessen direkten Unterobjekte in Abhängigkeit einer Variable.  
  Dazu wird die Variable <span style="color:red">__(1)__</span> mit den jeweiligen Wert aus <span style="color:red">__(2)__</span> oder <span style="color:red">__(5)__</span> verglichen.  
  Ist der Vergleich erfolgreich (= wahr) so wird das Ziel-Objekt <span style="color:red">__(3)__</span> deaktiviert.  
  Optional kann der Parameter Invertieren genutzt werden um den Vergleich umzudrehen.  
- 
+
 ![Doku/DisableControl_2.png](imgs//DisableControl_2.png)  
 
  <span style="color:red">__1.__</span> Die Variable welche zum Vergleich herangezogen wird.  
@@ -94,9 +97,10 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
   Bei dieser Einstellung wird beim deaktivieren geprüft, ob unter den Unterobjekten auch die Variable (oder ein Link zur Variable) enthalten ist.  
   Dieses Objekt wird dann **nicht** deaktiviert.  
 
----
+---  
 
-### LinkHideControl
+### LinkHideControl  
+
  Erzeugt Links zu Unterobjekte eines ausgewählten Objektes und versteckt/visualisiert diese Links in Abhängigkeit einer Variable.  
  Die Links werden aus allen direkten Unterobjekten des Quell-Objektes <span style="color:red">__(3)__</span> automatisch erzeugt.  
  Dabei werden versteckte Objekte im Quell-Objekt <span style="color:red">__(3)__</span> ignoriert.  
@@ -117,16 +121,17 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 **Achtung:**  
   Diese Instanz ist für die direkte Visualisierung gedacht.  
 
----
+---  
 
-### LinkDisableControl
+### LinkDisableControl  
+
  Erzeugt Links zu Unterobjekte eines ausgewählten Objektes und deaktiviert/aktiviert diese Links in Abhängigkeit einer Variable.  
  Die Links werden aus allen direkten Unterobjekten des Quell-Objektes <span style="color:red">__(3)__</span> automatisch erzeugt.  
  Dabei werden versteckte Objekte im Quell-Objekt <span style="color:red">__(3)__</span> ignoriert.  
  Zum Vergleich wird wieder die Variable <span style="color:red">__(1)__</span> mit den jeweiligen Wert aus <span style="color:red">__(2)__</span> oder <span style="color:red">__(5)__</span> verglichen.  
  Ist der Vergleich erfolgreich (= wahr) so werden die vorher erzeugten Links versteckt.  
  Optional kann der Parameter Invertieren genutzt werden um den Vergleich umzudrehen.  
- 
+
 ![Doku/LinkDisableControl_2.png](imgs//LinkDisableControl_2.png)  
 
  <span style="color:red">__1.__</span> Die Variable welche zum Vergleich herangezogen wird.  
@@ -139,10 +144,9 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 **Achtung:**  
   Diese Instanz ist für die direkte Visualisierung gedacht.  
 
-
 ## 5. Anhang
 
-###  1. GUID der Module
+### 1. GUID der Module
 
 |      Instanz       |                  GUID                  |
 | :----------------: | :------------------------------------: |
@@ -151,8 +155,7 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 |  LinkHideControl   | {37BC47EE-E95A-4DAF-A408-129D778F7AB5} |
 | LinkDisableControl | {E94821F4-1647-440B-BB2A-76F8CF1CBB16} |
 
-
-###  2. Eigenschaften der Instanzen
+### 2. Eigenschaften der Instanzen
 
 **Eigenschaften von HideControl:**  
 
@@ -195,31 +198,39 @@ Enthält verschiedene Module für die dynamische Visualisierung von Objekten im 
 ### 3. Changelog
 
 **Version 3.70:**  
- - Release für Symcon 8.1  
- - Dynamisches Konfigurationsformular bietet Vergleichswerte mit Profil an
- 
+
+- Release für Symcon 8.1  
+- Dynamisches Konfigurationsformular bietet Vergleichswerte mit Profil an
+
 **Version 3.50:**  
+
 - Release für IPS 6.3  
 - Dynamisches Konfigurationsformular welches Vergleichswerte auf Basis der Quelle anbietet  
 
 **Version 3.10:**  
+
 - Release für IPS 6.1  
 - Dynamisches Konfigurationsformular welche die nicht benötigten Vergleichswerte ausblendet  
-   
+
 **Version 3.00:**  
+
 - Release für IPS 5.1 und den Module-Store  
-- IPS_SetProperty und IPS_Applychanges auf sich selbst entfernt   
+- IPS_SetProperty und IPS_Applychanges auf sich selbst entfernt  
 
 **Version 2.02:**  
+
 - Fixes für IPS 5.0
 
-**Version 2.01:**
+**Version 2.01:**  
+
 - Release für IPS 4.3  
 
 **Version 2.0:**  
+
 - Release für IPS 4.1  
 
 **Version 1.0:**  
+
 - Release für IPS 4.0  
 
 ### 4. Spenden
